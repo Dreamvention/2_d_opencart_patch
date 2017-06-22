@@ -1,0 +1,53 @@
+{
+    "codename": "d_opencart_patch",
+    "version": "1.0.0",
+    "name": "Opencart Patch 2.2.x and below",
+    "description": "Adds support for new Extension Module folder",
+    "readme": "system/library/d_shopunity/readme/d_opencart_patch.md",
+    "author": {
+        "name": "Shopunity",
+        "email": "info@shopunity.com",
+        "url": "https://shopunity.net/"
+    },
+    "opencart_version": [
+        "2.0.0.0",
+        "2.0.1.1",
+        "2.0.1.1",
+        "2.0.2.0",
+        "2.0.3.1",
+        "2.1.0.1",
+        "2.1.0.2",
+        "2.2.0.0"
+    ],
+    "type": "library",
+    "license": {
+        "type": "free",
+        "url": "https://shopunity.net/licenses/free"
+    },
+    "install": {
+        "url": "d_shopunity/extension/install_ocmod&codename=d_opencart_patch",
+        "xml": "system/library/d_shopunity/install/d_opencart_patch.xml"
+    },
+    "uninstall": {
+       "url": "d_shopunity/extension/uninstall_ocmod&codename=d_opencart_patch",
+    },
+    "support": {
+        "email": "support@shopunity.com",
+        "url": "https://shopunity.net/"
+    },
+    "files": [
+        "system/library/d_shopunity/extension/d_opencart_patch.json",
+        "system/library/d_shopunity/install/d_opencart_patch.xml",
+        "system/library/d_shopunity/readme/d_opencart_patch.md",
+    ],
+    "dirs": [
+        "admin/model/extension/d_opencart_patch",
+        "catalog/model/extension/d_opencart_patch"
+    ],
+    "changelog": [
+        {
+            "version":"1.0.0",
+            "change": "Initial release"
+        }
+    ]
+}
