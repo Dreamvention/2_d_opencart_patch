@@ -94,7 +94,7 @@
         <operation error="skip" info="fix for 2.3.0.x">
             <search ><![CDATA[$data['extensions'][] = array(]]></search>
             <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 2]]></ignoreif>
-            <add position="after"><![CDATA[
+            <add position="replace"><![CDATA[
             //d_shopunity_oc230_patch.xml 2
             $data['extensions'][$extension] = array(
             ]]></add>
