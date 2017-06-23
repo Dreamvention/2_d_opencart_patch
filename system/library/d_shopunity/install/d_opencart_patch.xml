@@ -84,11 +84,19 @@
     <file path="admin/controller/extension/extension/module.php">
         <operation error="skip" info="fix for 2.3.0.x">
             <search ><![CDATA[$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/module/' . $this->request->get['extension']);]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml]]></ignoreif>
+            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 1]]></ignoreif>
             <add position="after"><![CDATA[
-            //d_shopunity_oc230_patch.xml
+            //d_shopunity_oc230_patch.xml 1
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'module/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'module/' . $this->request->get['extension']);
+            ]]></add>
+        </operation>
+        <operation error="skip" info="fix for 2.3.0.x">
+            <search ><![CDATA[$data['extensions'][] = array(]]></search>
+            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 2]]></ignoreif>
+            <add position="after"><![CDATA[
+            //d_shopunity_oc230_patch.xml 2
+            $data['extensions'][$extension] = array(
             ]]></add>
         </operation>
     </file>
