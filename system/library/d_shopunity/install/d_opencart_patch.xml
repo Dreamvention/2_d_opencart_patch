@@ -11,7 +11,7 @@
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$action = new Action($route, $args);]]></search>
             <add position="before"><![CDATA[
-        //d_shopunity_oc2_patch.xml 1
+        //d_opencart_patch.xml 1
         if(strpos($route, 'module/') === 0){
             if(file_exists(DIR_APPLICATION . 'controller/extension/' . $route . '.php')){
                 $route = 'extension/'.$route;
@@ -19,13 +19,10 @@
         }
             ]]></add>
         </operation>
-    </file>
-
-    <file path="system/engine/loader.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$controller = new $class($this->registry);]]></search>
             <add position="before"><![CDATA[
-        //d_shopunity_oc2_patch.xml 2
+        //d_opencart_patch.xml 2
         if(!is_file($file)){
             return false;
         }
@@ -37,7 +34,7 @@
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$parts = explode('/', str_replace('../', '', (string)$route));]]></search>
             <add position="before"><![CDATA[
-        //d_shopunity_oc2_patch.xml action
+        //d_opencart_patch.xml action
         $parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
         
         $this->method = 'index';
@@ -70,7 +67,7 @@
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$this->load->controller('module/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
-            //d_shopunity_oc2_patch.xml 1
+            //d_opencart_patch.xml 1
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/module/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/module/' . $this->request->get['extension']);
 
@@ -80,14 +77,14 @@
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$this->load->controller('module/' . $this->request->get['extension'] . '/uninstall');]]></search>
             <add position="after"><![CDATA[
-            //d_shopunity_oc2_patch.xml 2
+            //d_opencart_patch.xml 2
             $this->load->controller('extension/module/' . $this->request->get['extension'] . '/uninstall');
             ]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[if (!file_exists(DIR_APPLICATION . 'controller/module/' . $value . '.php')) {]]></search>
             <add position="replace"><![CDATA[
-                //d_shopunity_oc2_patch.xml 3
+                //d_opencart_patch.xml 3
                 if (!file_exists(DIR_APPLICATION . 'controller/module/' . $value . '.php') 
                 && !file_exists(DIR_APPLICATION . 'controller/extension/module/' . $value . '.php')) {
             ]]></add>
@@ -95,14 +92,14 @@
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$data['extensions'][] = array(]]></search>
             <add position="replace"><![CDATA[
-                //d_shopunity_oc2_patch.xml 4
+                //d_opencart_patch.xml 4
                 $data['extensions'][$extension] = array(
             ]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
             <add position="before"><![CDATA[
-        //d_shopunity_oc2_patch.xml 5
+        //d_opencart_patch.xml 5
         $files = glob(DIR_APPLICATION . 'controller/extension/module/*.php');
 
         if ($files) {
