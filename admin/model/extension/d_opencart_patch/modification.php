@@ -14,22 +14,17 @@ class ModelExtensionDOpencartPatchModification extends Model {
         //finding file
 
         //by full path.
-        $file = '';
-        if (!file_exists(str_replace("system/", "", DIR_SYSTEM).$xml)) {
-            $file =  str_replace("system/", "", DIR_SYSTEM) .$xml;
-        }
-
-        //in new location.
-        if (!file_exists(DIR_SYSTEM.'library/d_shopunity/install/'.$xml)) {
+        $file = str_replace("system/", "", DIR_SYSTEM).$xml;
+        if (!file_exists($file)) {
             $file =  DIR_SYSTEM.'library/d_shopunity/install/'.$xml;
         }
 
-        //in old location - deprecated! Will be removed in the next version!
-        if (!file_exists(DIR_SYSTEM.'mbooth/install/'.$xml)) {
+        //old format - depricated
+        if (!file_exists($file)) {
             $file =  DIR_SYSTEM.'mbooth/install/'.$xml;
         }
 
-        if(!$file){
+        if (!file_exists($file)) {
             return false;
         }
 
@@ -501,7 +496,53 @@ class ModelExtensionDOpencartPatchModification extends Model {
         return false;
     }
 
+    public function getModificationId($xml){
+        //by full path.
+        $file = str_replace("system/", "", DIR_SYSTEM).$xml;
+        if (!file_exists($file)) {
+            $file =  DIR_SYSTEM.'library/d_shopunity/install/'.$xml;
+        }
 
+        //old format - depricated
+        if (!file_exists($file)) {
+            $file =  DIR_SYSTEM.'mbooth/install/'.$xml;
+        }
+
+        if (!file_exists($file)) {
+            return false;
+        }
+
+        $xml = file_get_contents($file);
+
+        $dom = new DOMDocument('1.0', 'UTF-8');
+        $dom->loadXml($xml);
+
+        $code = $dom->getElementsByTagName('code')->item(0);
+        $name = $dom->getElementsByTagName('name')->item(0);
+        if ($name) {
+            $name = $name->nodeValue;
+        } else {
+            $name = '';
+        }
+
+        if ($code) {
+            $code = $code->nodeValue;
+        } else {
+            $code = '';
+        }
+
+        if ($code || $name) {
+            if(VERSION <= '2.0.0.0'){
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "modification WHERE name = '" . $this->db->escape($name) . "'");
+            }else{
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "modification WHERE code = '" . $this->db->escape($code) . "'");
+            }
+                
+            if(isset($query->row['modification_id'])){
+                return $query->row['modification_id'];
+            }
+        }
+    }
 
     public function getModificationByCode($code) {
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "modification WHERE code = '" . $this->db->escape($code) . "'");
