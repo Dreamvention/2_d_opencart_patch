@@ -72,16 +72,24 @@
             ]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
-            <search><![CDATA[$data['extensions'][] = array(]]></search>
+            <search><![CDATA[if (!file_exists(DIR_APPLICATION . 'controller/module/' . $value . '.php')) {]]></search>
             <add position="replace"><![CDATA[
                 //d_shopunity_oc2_patch.xml 3
+                if (!file_exists(DIR_APPLICATION . 'controller/module/' . $value . '.php') 
+                && !file_exists(DIR_APPLICATION . 'controller/extension/module/' . $value . '.php')) {
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$data['extensions'][] = array(]]></search>
+            <add position="replace"><![CDATA[
+                //d_shopunity_oc2_patch.xml 4
                 $data['extensions'][$extension] = array(
             ]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
             <add position="before"><![CDATA[
-        //d_shopunity_oc2_patch.xml 4
+        //d_shopunity_oc2_patch.xml 5
         $files = glob(DIR_APPLICATION . 'controller/extension/module/*.php');
 
         if ($files) {
