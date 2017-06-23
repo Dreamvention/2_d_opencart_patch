@@ -53,17 +53,35 @@
         </operation>
     </file>
     <file path="admin/controller/extension/module.php">
+        
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$this->load->controller('module/' . $this->request->get['extension'] . '/install');]]></search>
+            <add position="after"><![CDATA[
+            //d_shopunity_oc2_patch.xml 1
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/module/' . $this->request->get['extension']);
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/module/' . $this->request->get['extension']);
+
+            $this->load->controller('extension/module/' . $this->request->get['extension'] . '/install');
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$this->load->controller('module/' . $this->request->get['extension'] . '/uninstall');]]></search>
+            <add position="after"><![CDATA[
+            //d_shopunity_oc2_patch.xml 2
+            $this->load->controller('extension/module/' . $this->request->get['extension'] . '/uninstall');
+            ]]></add>
+        </operation>
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$data['extensions'][] = array(]]></search>
             <add position="replace"><![CDATA[
+                //d_shopunity_oc2_patch.xml 3
                 $data['extensions'][$extension] = array(
             ]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
-            <search><![CDATA[if (isset($this->request->post['selected'])) {]]></search>
+            <search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
             <add position="before"><![CDATA[
-
-        //d_shopunity_oc2_patch.xml module
+        //d_shopunity_oc2_patch.xml 4
         $files = glob(DIR_APPLICATION . 'controller/extension/module/*.php');
 
         if ($files) {
@@ -95,18 +113,15 @@
                 );
             }
         }
+
+        $sort_order = array();
+
+        foreach ($data['extensions'] as $key => $value) {
+            $sort_order[$key] = $value['name'];
+        }
+
+        array_multisort($sort_order, SORT_ASC, $data['extensions']);
             ]]></add>
         </operation>
-        <operation error="skip" info="port new module structure to old oc2">
-            <search><![CDATA[$this->load->controller('module/' . $this->request->get['extension'] . '/install');]]></search>
-            <add position="after"><![CDATA[
-
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/module/' . $this->request->get['extension']);
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/module/' . $this->request->get['extension']);
-
-            $this->load->controller('extension/module/' . $this->request->get['extension'] . '/install');
-            ]]></add>
-        </operation>
-
     </file>
 </modification>
