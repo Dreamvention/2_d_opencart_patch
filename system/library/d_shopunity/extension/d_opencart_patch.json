@@ -29,7 +29,7 @@
         "xml": "system/library/d_shopunity/install/d_opencart_patch.xml"
     },
     "uninstall": {
-       "url": "d_shopunity/extension/uninstall_ocmod&codename=d_opencart_patch",
+       "url": "d_shopunity/extension/uninstall_ocmod&codename=d_opencart_patch"
     },
     "support": {
         "email": "support@shopunity.com",
