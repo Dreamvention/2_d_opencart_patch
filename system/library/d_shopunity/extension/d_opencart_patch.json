@@ -38,7 +38,7 @@
     "files": [
         "system/library/d_shopunity/extension/d_opencart_patch.json",
         "system/library/d_shopunity/install/d_opencart_patch.xml",
-        "system/library/d_shopunity/readme/d_opencart_patch.md",
+        "system/library/d_shopunity/readme/d_opencart_patch.md"
     ],
     "dirs": [
         "admin/model/extension/d_opencart_patch",
