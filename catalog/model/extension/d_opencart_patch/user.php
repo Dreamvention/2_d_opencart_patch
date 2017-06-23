@@ -1,4 +1,3 @@
-
 <?php
 /*
  *  location: catalog/model/extension/d_opencart_patch/user.php
