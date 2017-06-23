@@ -68,8 +68,9 @@
             <search><![CDATA[$this->load->controller('module/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
             //d_opencart_patch.xml 1
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/module/' . $this->request->get['extension']);
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/module/' . $this->request->get['extension']);
+            $this->load->model('extension/d_opencart_patch/user');
+            $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/module/' . $this->request->get['extension']);
+            $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/module/' . $this->request->get['extension']);
 
             $this->load->controller('extension/module/' . $this->request->get['extension'] . '/install');
             ]]></add>
@@ -109,16 +110,17 @@
                 $this->load->language('extension/module/' . $extension);
 
                 $module_data = array();
-                
-                $modules = $this->model_extension_module->getModulesByCode($extension);
-                
-                foreach ($modules as $module) {
-                    $module_data[] = array(
-                        'module_id' => $module['module_id'],
-                        'name'      => $this->language->get('heading_title') . ' &gt; ' . $module['name'],
-                        'edit'      => $this->url->link('extension/module/' . $extension, 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL'),
-                        'delete'    => $this->url->link('extension/module/delete', 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL')
-                    );
+                if(VERSION > "2.0.0.0"){
+                    $modules = $this->model_extension_module->getModulesByCode($extension);
+                    
+                    foreach ($modules as $module) {
+                        $module_data[] = array(
+                            'module_id' => $module['module_id'],
+                            'name'      => $this->language->get('heading_title') . ' &gt; ' . $module['name'],
+                            'edit'      => $this->url->link('extension/module/' . $extension, 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL'),
+                            'delete'    => $this->url->link('extension/module/delete', 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL')
+                        );
+                    }
                 }
 
                 $data['extensions'][$extension] = array(
