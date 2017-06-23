@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>d_opencart_patch</name>
+    <code>d_opencart_patch</code>
+    <description>Ports the new module extension folder structure to old Opencarts 2.x</description>
+    <version>2.x</version>
+    <author>Dreamvention</author>
+    <link>http://dreamvention.com</link>
+
+    <file path="system/engine/loader.php">
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$action = new Action($route, $args);]]></search>
+            <add position="before"><![CDATA[
+        //d_shopunity_oc2_patch.xml controller
+        if(strpos($route, 'module/') === 0){
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
+            ]]></add>
+        </operation>
+    </file>
+    <file path="system/engine/action.php">
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$parts = explode('/', str_replace('../', '', (string)$route));]]></search>
+            <add position="before"><![CDATA[
+        //d_shopunity_oc2_patch.xml action
+        $parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
+        
+        $this->method = 'index';
+        while ($parts) {
+            $path = implode('/', $parts);
+            $file = DIR_APPLICATION . 'controller/' . $path . '.php';
+
+            if (is_file($file)) {
+                $this->file = $file;
+
+                $this->class = 'Controller' . preg_replace('/[^a-zA-Z0-9]/', '', $path);
+                
+                break;
+            } else {
+                $this->method = array_pop($parts);
+            }
+        }
+
+        if ($args) {
+            $this->args = $args;
+        }
+
+        return;
+        //the following code will be ignored.
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin/controller/extension/module.php">
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$data['extensions'][] = array(]]></search>
+            <add position="replace"><![CDATA[
+                $data['extensions'][$extension] = array(
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[if (isset($this->request->post['selected'])) {]]></search>
+            <add position="before"><![CDATA[
+
+        //d_shopunity_oc2_patch.xml module
+        $files = glob(DIR_APPLICATION . 'controller/extension/module/*.php');
+
+        if ($files) {
+            foreach ($files as $file) {
+                $extension = basename($file, '.php');
+
+                $this->load->language('extension/module/' . $extension);
+
+                $module_data = array();
+                
+                $modules = $this->model_extension_module->getModulesByCode($extension);
+                
+                foreach ($modules as $module) {
+                    $module_data[] = array(
+                        'module_id' => $module['module_id'],
+                        'name'      => $this->language->get('heading_title') . ' &gt; ' . $module['name'],
+                        'edit'      => $this->url->link('extension/module/' . $extension, 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL'),
+                        'delete'    => $this->url->link('extension/module/delete', 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL')
+                    );
+                }
+
+                $data['extensions'][$extension] = array(
+                    'name'      => $this->language->get('heading_title'),
+                    'module'    => $module_data,
+                    'install'   => $this->url->link('extension/module/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
+                    'uninstall' => $this->url->link('extension/module/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
+                    'installed' => in_array($extension, $extensions),
+                    'edit'      => $this->url->link('extension/module/' . $extension, 'token=' . $this->session->data['token'], 'SSL')
+                );
+            }
+        }
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$this->load->controller('module/' . $this->request->get['extension'] . '/install');]]></search>
+            <add position="after"><![CDATA[
+
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/module/' . $this->request->get['extension']);
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/module/' . $this->request->get['extension']);
+
+            $this->load->controller('extension/module/' . $this->request->get['extension'] . '/install');
+            ]]></add>
+        </operation>
+
+    </file>
+</modification>
