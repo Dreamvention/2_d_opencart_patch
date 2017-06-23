@@ -11,7 +11,7 @@
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$action = new Action($route, $args);]]></search>
             <add position="before"><![CDATA[
-        //d_shopunity_oc2_patch.xml controller
+        //d_shopunity_oc2_patch.xml 1
         if(strpos($route, 'module/') === 0){
             if(file_exists(DIR_APPLICATION . 'controller/extension/' . $route . '.php')){
                 $route = 'extension/'.$route;
@@ -20,6 +20,19 @@
             ]]></add>
         </operation>
     </file>
+
+    <file path="system/engine/loader.php">
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$controller = new $class($this->registry);]]></search>
+            <add position="before"><![CDATA[
+        //d_shopunity_oc2_patch.xml 2
+        if(!is_file($file)){
+            return false;
+        }
+            ]]></add>
+        </operation>
+    </file>
+
     <file path="system/engine/action.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$parts = explode('/', str_replace('../', '', (string)$route));]]></search>
