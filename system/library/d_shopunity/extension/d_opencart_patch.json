@@ -1,6 +1,6 @@
 {
     "codename": "d_opencart_patch",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "name": "Opencart Patch 2.2.x and below",
     "description": "Adds support for new Extension Module folder",
     "readme": "system/library/d_shopunity/readme/d_opencart_patch.md",
@@ -10,14 +10,9 @@
         "url": "https://shopunity.net/"
     },
     "opencart_version": [
-        "2.0.0.0",
-        "2.0.1.1",
-        "2.0.1.1",
-        "2.0.2.0",
-        "2.0.3.1",
-        "2.1.0.1",
-        "2.1.0.2",
-        "2.2.0.0"
+        "2.3.0.0",
+        "2.3.0.1",
+        "2.3.0.2"
     ],
     "type": "library",
     "license": {
