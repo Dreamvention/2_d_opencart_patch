@@ -9,8 +9,8 @@
 
     <file path="system/engine/loader.php">
         <operation error="skip" info="port new module structure to old oc2">
-            <search><![CDATA[$action = new Action($route, $args);]]></search>
-            <add position="before"><![CDATA[
+            <search><![CDATA[public function controller($route, $args = array()) {]]></search>
+            <add position="after"><![CDATA[
         //d_opencart_patch.xml 1
         if(strpos($route, 'module/') === 0){
             if(file_exists(DIR_APPLICATION . 'controller/extension/' . $route . '.php')){
