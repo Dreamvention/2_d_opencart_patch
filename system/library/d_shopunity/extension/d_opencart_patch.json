@@ -48,7 +48,7 @@
         {
             "version":"1.0.1",
             "change": "Added support for extension/dashboard permissions"
-        }
+        },
         {
             "version":"1.0.0",
             "change": "Initial release"
