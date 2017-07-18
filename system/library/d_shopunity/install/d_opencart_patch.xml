@@ -28,7 +28,6 @@
             ]]></add>
         </operation>
     </file>
-
     <file path="system/engine/action.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$parts = explode('/', str_replace('../', '', (string)$route));]]></search>
