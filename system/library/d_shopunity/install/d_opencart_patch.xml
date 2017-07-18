@@ -6,7 +6,6 @@
     <version>2.x</version>
     <author>Dreamvention</author>
     <link>http://dreamvention.com</link>
-
     <file path="system/engine/loader.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[public function controller($route, $args = array()) {]]></search>
@@ -141,6 +140,15 @@
         }
 
         array_multisort($sort_order, SORT_ASC, $data['extensions']);
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin/controller/{startup,error}/permission.php">
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$ignore = array(]]></search>
+            <add position="after"><![CDATA[
+        //d_opencart_patch.xml 1
+        'extension/dashboard',
             ]]></add>
         </operation>
     </file>
