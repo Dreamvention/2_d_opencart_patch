@@ -3,7 +3,7 @@
     <name>d_opencart_patch</name>
     <code>d_opencart_patch</code>
     <description>Ports the new module extension folder structure to old Opencarts 2.x</description>
-    <version>2.x</version>
+    <version>3.x</version>
     <author>Dreamvention</author>
     <link>http://dreamvention.com</link>
 
