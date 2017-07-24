@@ -16,4 +16,20 @@ class ModelExtensionDOpencartPatchUser extends Model {
 
         return $user_group_id;
     }
+
+    public function getUrlToken(){
+        if(VERSION >= '3.0.0.0'){
+            return'user_token=' . $this->session->data['user_token'];
+        }else{
+            return 'token=' . $this->session->data['token'];
+        }
+    }
+
+    public function getToken(){
+        if(VERSION >= '3.0.0.0'){
+            return  $this->session->data['user_token'];
+        }else{
+            return $this->session->data['token'];
+        }
+    }
 }
