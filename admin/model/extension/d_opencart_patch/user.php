@@ -19,7 +19,7 @@ class ModelExtensionDOpencartPatchUser extends Model {
 
     public function getUrlToken(){
         if(VERSION >= '3.0.0.0'){
-            return'user_token=' . $this->session->data['user_token'];
+            return 'user_token=' . $this->session->data['user_token'];
         }else{
             return 'token=' . $this->session->data['token'];
         }
@@ -27,7 +27,7 @@ class ModelExtensionDOpencartPatchUser extends Model {
 
     public function getToken(){
         if(VERSION >= '3.0.0.0'){
-            return  $this->session->data['user_token'];
+            return $this->session->data['user_token'];
         }else{
             return $this->session->data['token'];
         }
