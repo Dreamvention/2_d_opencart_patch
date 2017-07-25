@@ -1,6 +1,6 @@
 {
     "codename": "d_opencart_patch",
-    "version": "3.0.1",
+    "version": "3.0.0",
     "name": "Opencart Patch 3.x",
     "description": "Adds support for new Extension Module folder and reduces compatibility issues",
     "readme": "system/library/d_shopunity/readme/d_opencart_patch.md",
