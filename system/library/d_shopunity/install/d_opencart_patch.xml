@@ -96,15 +96,28 @@
             ]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$this->load->language('module/' . $extension);]]></search>
+            <add position="before"><![CDATA[
+                //d_opencart_patch.xml 5
+                if($extension == 'd_opencart_patch'){
+                    continue;
+                }
+            ]]></add>
+        </operation>
+        
+        <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
             <add position="before"><![CDATA[
-        //d_opencart_patch.xml 5
+        //d_opencart_patch.xml 6
         $files = glob(DIR_APPLICATION . 'controller/extension/module/*.php');
 
         if ($files) {
             foreach ($files as $file) {
                 $extension = basename($file, '.php');
 
+                if($extension == 'd_opencart_patch'){
+                    continue;
+                }
                 $this->load->language('extension/module/' . $extension);
 
                 $module_data = array();
