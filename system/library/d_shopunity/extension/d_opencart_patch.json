@@ -25,11 +25,11 @@
         "url": "https://shopunity.net/licenses/free"
     },
     "install": {
-        "url": "d_shopunity/extension/install_ocmod&codename=d_opencart_patch",
+        "url": "extension/d_shopunity/modification/install&codename=d_opencart_patch",
         "xml": "system/library/d_shopunity/install/d_opencart_patch.xml"
     },
     "uninstall": {
-       "url": "d_shopunity/extension/uninstall_ocmod&codename=d_opencart_patch"
+       "url": "extension/d_shopunity/modification/uninstall&codename=d_opencart_patch"
     },
     "support": {
         "email": "support@shopunity.com",
