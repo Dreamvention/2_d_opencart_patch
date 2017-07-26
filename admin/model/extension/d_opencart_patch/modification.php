@@ -29,7 +29,12 @@ class ModelExtensionDOpencartPatchModification extends Model {
         }
 
         $json = array();
-        $this->load->model('extension/modification');
+        if(VERSION >= '3.0.0.0'){
+            $this->load->model('setting/modification');
+        }else{
+            $this->load->model('extension/modification');
+        }
+        
         if($status){
            
 
@@ -112,16 +117,29 @@ class ModelExtensionDOpencartPatchModification extends Model {
         }else{
             $modification_id = $this->getModificationId($xml);
             if($modification_id){
-                $this->model_extension_modification->deleteModification($modification_id);
+                if(VERSION >= '3.0.0.0'){
+                    $this->model_setting_modification->deleteModification($modification_id);
+                }else{
+                    $this->model_extension_modification->deleteModification($modification_id);
+                }
             }
         }
         return false;
     }
 
     public function refreshCache(){
-        $this->load->language('extension/modification');
+        if(VERSION >= '3.0.0.0'){
+            $this->load->language('marketplace/modification');
+        }else{
+            $this->load->language('extension/modification');
+        }
+        
 
-        $this->load->model('extension/modification');
+        if(VERSION >= '3.0.0.0'){
+            $this->load->model('setting/modification');
+        }else{
+            $this->load->model('extension/modification');
+        }
 
             // Just before files are deleted, if config settings say maintenance mode is off then turn it on
             // $maintenance = $this->config->get('config_maintenance');
@@ -187,7 +205,11 @@ class ModelExtensionDOpencartPatchModification extends Model {
             }
 
             // Get the default modification file
-            $results = $this->model_extension_modification->getModifications();
+            if(VERSION >= '3.0.0.0'){
+                $results = $this->model_setting_modification->getModifications();
+            }else{
+                $results = $this->model_extension_modification->getModifications();
+            }
 
             foreach ($results as $result) {
                 if ($result['status']) {
