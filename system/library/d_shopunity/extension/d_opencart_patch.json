@@ -1,6 +1,6 @@
 {
     "codename": "d_opencart_patch",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "name": "Opencart Patch 2.2.x and below",
     "description": "Adds support for new Extension Module folder",
     "readme": "system/library/d_shopunity/readme/d_opencart_patch.md",
@@ -20,11 +20,11 @@
         "url": "https://shopunity.net/licenses/free"
     },
     "install": {
-        "url": "d_shopunity/extension/install_ocmod&codename=d_opencart_patch",
+        "url": "extension/d_shopunity/modification/install&codename=d_opencart_patch",
         "xml": "system/library/d_shopunity/install/d_opencart_patch.xml"
     },
     "uninstall": {
-       "url": "d_shopunity/extension/uninstall_ocmod&codename=d_opencart_patch"
+       "url": "extension/d_shopunity/modification/uninstall&codename=d_opencart_patch"
     },
     "support": {
         "email": "support@shopunity.com",
@@ -40,6 +40,10 @@
         "catalog/model/extension/d_opencart_patch"
     ],
     "changelog": [
+        {
+            "version":"2.0.2",
+            "change": "Bug fixes"
+        },
         {
             "version":"2.0.1",
             "change": "Added user token"
