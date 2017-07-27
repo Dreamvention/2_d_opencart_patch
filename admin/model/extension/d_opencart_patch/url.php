@@ -8,16 +8,18 @@ class ModelExtensionDOpencartPatchUrl extends Model {
 
     public function link($route, $url = '', $secure = 'SSL'){
 
-        if(VERSION >= '3.0.0.0'){
-            $token = 'user_token=' . $this->session->data['user_token'];
-        }else{
-            $token = 'token=' . $this->session->data['token'];
-        }
+        if(isset($this->session->data['user_token']) || isset($this->session->data['token'])){
+            if(VERSION >= '3.0.0.0'){
+                $token = 'user_token=' . $this->session->data['user_token'];
+            }else{
+                $token = 'token=' . $this->session->data['token'];
+            }
 
-        if($url){
-            $url = $token . '&' .$url;
-        }else{
-            $url = $token;
+            if($url){
+                $url = $token . '&' .$url;
+            }else{
+                $url = $token;
+            }
         }
 
         if(VERSION >= '3.0.0.0'){
