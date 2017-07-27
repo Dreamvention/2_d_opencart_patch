@@ -1,6 +1,6 @@
 {
     "codename": "d_opencart_patch",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "name": "Opencart Patch 3.x",
     "description": "Adds support for new Extension Module folder and reduces compatibility issues",
     "readme": "system/library/d_shopunity/readme/d_opencart_patch.md",
@@ -33,6 +33,10 @@
         "catalog/model/extension/d_opencart_patch"
     ],
     "changelog": [
+        {
+            "version":"3.0.3",
+            "change": "Added url model"
+        },
         {
             "version":"3.0.2",
             "change": "Hotfix. fix conflict with thrid-party Modification"
