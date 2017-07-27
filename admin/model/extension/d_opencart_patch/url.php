@@ -25,19 +25,19 @@ class ModelExtensionDOpencartPatchUrl extends Model {
                 'marketplace/extension' => 'marketplace/extension',
                 'extension/extension' => 'marketplace/extension',
                 'extension/module' => 'marketplace/extension'
-            )
+            );
         }elseif(VERSION >= '2.3.0.0'){
             $routes = array(
                 'marketplace/extension' => 'extension/extension',
                 'extension/extension' => 'extension/extension',
                 'extension/module' => 'extension/extension'
-            )
+            );
         }else{
             $routes =  array(
                 'marketplace/extension' => 'extension/module',
                 'extension/extension' => 'extension/module',
                 'extension/module' => 'extension/module'
-            )
+            );
         }
         
         foreach($routes as $key => $value){
