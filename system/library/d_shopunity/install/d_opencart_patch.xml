@@ -33,7 +33,7 @@
                 <search><![CDATA[$file = DIR_LANGUAGE . $this->default . '/' . $filename . '.php';]]></search>
                 <add position="before"><![CDATA[
             //d_opencart_patch.xml 
-            $file = DIR_LANGUAGE . 'en-bg/' . $filename . '.php';
+            $file = DIR_LANGUAGE . 'en-gb/' . $filename . '.php';
             
             if (is_file($file)) {
                 require($file);
