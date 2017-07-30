@@ -45,4 +45,8 @@ class ModelExtensionDOpencartPatchUrl extends Model {
 
         return $this->url->link($route, $url, $secure);
     }
+
+    public function ajax($route, $url = '', $ssl = true){
+        return str_replace('&amp;', '&', $this->link($route, $url, $ssl));
+    }
 }
