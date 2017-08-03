@@ -42,7 +42,6 @@ class ModelExtensionDOpencartPatchUrl extends Model {
                 $route = str_replace($key, $value, $route);
             }
         }
-        
 
         return $this->url->link($route, $url, $secure);
     }
