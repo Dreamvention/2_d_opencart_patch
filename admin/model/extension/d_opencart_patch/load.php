@@ -11,7 +11,7 @@ class ModelExtensionDOpencartPatchLoad extends Model {
             $template = substr($template, 0, -4);
         }
 
-        if(VERSION <= '2.1.0.0'){
+        if(VERSION < '2.2.0.0'){
             return $this->load->view($template.'.tpl', $data);
         }else{
             return $this->load->view($template, $data);
