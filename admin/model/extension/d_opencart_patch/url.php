@@ -50,7 +50,7 @@ class ModelExtensionDOpencartPatchUrl extends Model {
         return str_replace('&amp;', '&', $this->link($route, $url, $secure));
     }
 
-    public getExtensionLink($type, $url = '', $secure = 'SSL'){
+    public function getExtensionLink($type, $url = '', $secure = 'SSL'){
 
         if(isset($this->session->data['user_token']) || isset($this->session->data['token'])){
             if(VERSION >= '3.0.0.0'){
