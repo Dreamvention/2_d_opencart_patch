@@ -33,7 +33,7 @@ class ModelExtensionDOpencartPatchModule extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "module` WHERE `code` = '" . $this->db->escape($code) . "' ORDER BY `name`");
 
         return $query->rows;
-    }   
+    }
     
     public function deleteModulesByCode($code) {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "module` WHERE `code` = '" . $this->db->escape($code) . "'");
