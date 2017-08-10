@@ -1,11 +1,20 @@
 <?php
 class ModelExtensionDOpencartPatchModule extends Model {
     public function addModule($code, $data) {
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "module` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($code) . "', `setting` = '" . $this->db->escape(json_encode($data)) . "'");
+        if(VERSION >= '2.1.0.0'){
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "module` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($code) . "', `setting` = '" . $this->db->escape(json_encode($data)) . "'");
+        }else{
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "module` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($code) . "', `setting` = '" . $this->db->escape(serialize($data)) . "'");
+        }
+        
     }
     
     public function editModule($module_id, $data) {
-        $this->db->query("UPDATE `" . DB_PREFIX . "module` SET `name` = '" . $this->db->escape($data['name']) . "', `setting` = '" . $this->db->escape(json_encode($data)) . "' WHERE `module_id` = '" . (int)$module_id . "'");
+        if(VERSION >= '2.1.0.0'){
+            $this->db->query("UPDATE `" . DB_PREFIX . "module` SET `name` = '" . $this->db->escape($data['name']) . "', `setting` = '" . $this->db->escape(json_encode($data)) . "' WHERE `module_id` = '" . (int)$module_id . "'");
+        }else{
+            $this->db->query("UPDATE `" . DB_PREFIX . "module` SET `name` = '" . $this->db->escape($data['name']) . "', `setting` = '" . $this->db->escape(serialize($data)) . "' WHERE `module_id` = '" . (int)$module_id . "'");
+        }
     }
 
     public function deleteModule($module_id) {
@@ -16,10 +25,18 @@ class ModelExtensionDOpencartPatchModule extends Model {
     public function getModule($module_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "module` WHERE `module_id` = '" . (int)$module_id . "'");
 
-        if ($query->row) {
-            return json_decode($query->row['setting'], true);
-        } else {
-            return array();
+        if(VERSION >= '2.1.0.0'){
+            if ($query->row) {
+                return json_decode($query->row['setting'], true);
+            } else {
+                return array();
+            }
+        }else{
+            if ($query->row) {
+                return unserialize($query->row['setting']);
+            } else {
+                return array(); 
+            }
         }
     }
     
