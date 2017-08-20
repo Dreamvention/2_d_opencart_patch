@@ -18,6 +18,19 @@
         }
             ]]></add>
         </operation>
+
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[public function controller($route, $data = array()) {]]></search>
+            <add position="after"><![CDATA[
+        //d_opencart_patch.xml 1
+        if(strpos($route, 'module/') === 0){
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
+            ]]></add>
+        </operation>
+
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$controller = new $class($this->registry);]]></search>
             <add position="before"><![CDATA[
