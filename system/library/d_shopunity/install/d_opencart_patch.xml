@@ -6,7 +6,7 @@
     <version>2.x</version>
     <author>Dreamvention</author>
     <link>http://dreamvention.com</link>
-        <file path="system/engine/loader.php">
+    <file path="system/engine/loader.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[public function controller($route, $args = array()) {]]></search>
             <add position="after"><![CDATA[
@@ -51,7 +51,7 @@
             ]]></add>
         </operation>
     </file>
-    
+
     <file path="system/library/language.php">
         <operation error="skip" info="port new module structure to old oc2">
                 <search><![CDATA[$file = DIR_LANGUAGE . $this->default . '/' . $filename . '.php';]]></search>
