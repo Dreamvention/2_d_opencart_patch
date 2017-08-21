@@ -6,6 +6,7 @@
     <version>2.x</version>
     <author>Dreamvention</author>
     <link>http://dreamvention.com</link>
+
     <file path="system/engine/loader.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[public function controller($route, $args = array()) {]]></search>
@@ -13,6 +14,37 @@
         //d_opencart_patch.xml 1
         if(strpos($route, 'module/') === 0){
             if(file_exists(DIR_APPLICATION . 'controller/extension/' . $route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
+        if(strpos($route, 'total/') === 0){
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
+        if(strpos($route, 'analytics/') === 0){
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
+        if(strpos($route, 'fraud/') === 0){
+            preg_match("/(\/)/", $route, $match);
+            $test_route = (count($match) > 1) ? preg_replace("/(\/)[a-z0-9_\-]+$/", "", $route) : $route;
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $test_route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
+        if(strpos($route, 'payment/') === 0){
+            preg_match("/(\/)/", $route, $match);
+            $test_route = (count($match) > 1) ? preg_replace("/(\/)[a-z0-9_\-]+$/", "", $route) : $route;
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $test_route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
+        if(strpos($route, 'captcha/') === 0){
+            preg_match("/(\/)/", $route, $match);
+            $test_route = (count($match) > 1) ? preg_replace("/(\/)[a-z0-9_\-]+$/", "", $route) : $route;
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $test_route . '.php')){
                 $route = 'extension/'.$route;
             }
         }
@@ -39,6 +71,37 @@
                 $route = 'extension/'.$route;
             }
         }
+        if(strpos($route, 'total/') === 0){
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
+        if(strpos($route, 'analytics/') === 0){
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
+        if(strpos($route, 'fraud/') === 0){
+            preg_match("/(\/)/", $route, $match);
+            $test_route = (count($match) > 1) ? preg_replace("/(\/)[a-z0-9_\-]+$/", "", $route) : $route;
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $test_route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
+        if(strpos($route, 'payment/') === 0){
+            preg_match("/(\/)/", $route, $match);
+            $test_route = (count($match) > 1) ? preg_replace("/(\/)[a-z0-9_\-]+$/", "", $route) : $route;
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $test_route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
+        if(strpos($route, 'captcha/') === 0){
+            preg_match("/(\/)/", $route, $match);
+            $test_route = (count($match) > 1) ? preg_replace("/(\/)[a-z0-9_\-]+$/", "", $route) : $route;
+            if(file_exists(DIR_APPLICATION . 'controller/extension/' . $test_route . '.php')){
+                $route = 'extension/'.$route;
+            }
+        }
             ]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
@@ -56,9 +119,9 @@
         <operation error="skip" info="port new module structure to old oc2">
                 <search><![CDATA[$file = DIR_LANGUAGE . $this->default . '/' . $filename . '.php';]]></search>
                 <add position="before"><![CDATA[
-            //d_opencart_patch.xml 
+            //d_opencart_patch.xml
             $file = DIR_LANGUAGE . 'en-gb/' . $filename . '.php';
-            
+
             if (is_file($file)) {
                 require($file);
             }
@@ -71,7 +134,7 @@
             <add position="before"><![CDATA[
         //d_opencart_patch.xml action
         $parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
-        
+
         $this->method = 'index';
         while ($parts) {
             $path = implode('/', $parts);
@@ -81,7 +144,7 @@
                 $this->file = $file;
 
                 $this->class = 'Controller' . preg_replace('/[^a-zA-Z0-9]/', '', $path);
-                
+
                 break;
             } else {
                 $this->method = array_pop($parts);
@@ -98,7 +161,7 @@
         </operation>
     </file>
     <file path="admin/controller/extension/module.php">
-        
+
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$this->load->controller('module/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -121,7 +184,7 @@
             <search><![CDATA[if (!file_exists(DIR_APPLICATION . 'controller/module/' . $value . '.php')) {]]></search>
             <add position="replace"><![CDATA[
                 //d_opencart_patch.xml 3
-                if (!file_exists(DIR_APPLICATION . 'controller/module/' . $value . '.php') 
+                if (!file_exists(DIR_APPLICATION . 'controller/module/' . $value . '.php')
                 && !file_exists(DIR_APPLICATION . 'controller/extension/module/' . $value . '.php')) {
             ]]></add>
         </operation>
@@ -160,7 +223,7 @@
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-                    
+
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -194,7 +257,7 @@
         </operation>
     </file>
     <file path="admin/controller/extension/shipping.php">
-        
+
         <operation error="skip" info="port new shipping structure to old oc2">
             <search><![CDATA[$this->load->controller('shipping/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -217,7 +280,7 @@
             <search><![CDATA[if (!file_exists(DIR_APPLICATION . 'controller/shipping/' . $value . '.php')) {]]></search>
             <add position="replace"><![CDATA[
                 //d_opencart_patch.xml 3
-                if (!file_exists(DIR_APPLICATION . 'controller/shipping/' . $value . '.php') 
+                if (!file_exists(DIR_APPLICATION . 'controller/shipping/' . $value . '.php')
                 && !file_exists(DIR_APPLICATION . 'controller/extension/shipping/' . $value . '.php')) {
             ]]></add>
         </operation>
@@ -256,7 +319,7 @@
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-                    
+
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -290,7 +353,7 @@
         </operation>
     </file>
     <file path="admin/controller/extension/payment.php">
-        
+
         <operation error="skip" info="port new payment structure to old oc2">
             <search><![CDATA[$this->load->controller('payment/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -313,7 +376,7 @@
             <search><![CDATA[if (!file_exists(DIR_APPLICATION . 'controller/payment/' . $value . '.php')) {]]></search>
             <add position="replace"><![CDATA[
                 //d_opencart_patch.xml 3
-                if (!file_exists(DIR_APPLICATION . 'controller/payment/' . $value . '.php') 
+                if (!file_exists(DIR_APPLICATION . 'controller/payment/' . $value . '.php')
                 && !file_exists(DIR_APPLICATION . 'controller/extension/payment/' . $value . '.php')) {
             ]]></add>
         </operation>
@@ -352,7 +415,7 @@
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-                    
+
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -386,7 +449,7 @@
         </operation>
     </file>
     <file path="admin/controller/extension/dashboard.php">
-        
+
         <operation error="skip" info="port new dashboard structure to old oc2">
             <search><![CDATA[$this->load->controller('dashboard/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -409,7 +472,7 @@
             <search><![CDATA[if (!file_exists(DIR_APPLICATION . 'controller/dashboard/' . $value . '.php')) {]]></search>
             <add position="replace"><![CDATA[
                 //d_opencart_patch.xml 3
-                if (!file_exists(DIR_APPLICATION . 'controller/dashboard/' . $value . '.php') 
+                if (!file_exists(DIR_APPLICATION . 'controller/dashboard/' . $value . '.php')
                 && !file_exists(DIR_APPLICATION . 'controller/extension/dashboard/' . $value . '.php')) {
             ]]></add>
         </operation>
@@ -448,7 +511,7 @@
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-                    
+
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -482,7 +545,7 @@
         </operation>
     </file>
     <file path="admin/controller/extension/total.php">
-        
+
         <operation error="skip" info="port new total structure to old oc2">
             <search><![CDATA[$this->load->controller('total/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -505,7 +568,7 @@
             <search><![CDATA[if (!file_exists(DIR_APPLICATION . 'controller/total/' . $value . '.php')) {]]></search>
             <add position="replace"><![CDATA[
                 //d_opencart_patch.xml 3
-                if (!file_exists(DIR_APPLICATION . 'controller/total/' . $value . '.php') 
+                if (!file_exists(DIR_APPLICATION . 'controller/total/' . $value . '.php')
                 && !file_exists(DIR_APPLICATION . 'controller/extension/total/' . $value . '.php')) {
             ]]></add>
         </operation>
@@ -544,7 +607,7 @@
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-                    
+
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -578,7 +641,7 @@
         </operation>
     </file>
     <file path="admin/controller/extension/feed.php">
-        
+
         <operation error="skip" info="port new feed structure to old oc2">
             <search><![CDATA[$this->load->controller('feed/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -601,7 +664,7 @@
             <search><![CDATA[if (!file_exists(DIR_APPLICATION . 'controller/feed/' . $value . '.php')) {]]></search>
             <add position="replace"><![CDATA[
                 //d_opencart_patch.xml 3
-                if (!file_exists(DIR_APPLICATION . 'controller/feed/' . $value . '.php') 
+                if (!file_exists(DIR_APPLICATION . 'controller/feed/' . $value . '.php')
                 && !file_exists(DIR_APPLICATION . 'controller/extension/feed/' . $value . '.php')) {
             ]]></add>
         </operation>
@@ -640,7 +703,7 @@
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-                    
+
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -673,8 +736,8 @@
             ]]></add>
         </operation>
     </file>
+
     <file path="admin/controller/extension/fraud.php">
-        
         <operation error="skip" info="port new fraud structure to old oc2">
             <search><![CDATA[$this->load->controller('fraud/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -697,7 +760,7 @@
             <search><![CDATA[if (!file_exists(DIR_APPLICATION . 'controller/fraud/' . $value . '.php')) {]]></search>
             <add position="replace"><![CDATA[
                 //d_opencart_patch.xml 3
-                if (!file_exists(DIR_APPLICATION . 'controller/fraud/' . $value . '.php') 
+                if (!file_exists(DIR_APPLICATION . 'controller/fraud/' . $value . '.php')
                 && !file_exists(DIR_APPLICATION . 'controller/extension/fraud/' . $value . '.php')) {
             ]]></add>
         </operation>
@@ -736,7 +799,7 @@
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-                    
+
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -769,6 +832,200 @@
             ]]></add>
         </operation>
     </file>
+
+    <file path="admin/controller/extension/analytics.php">
+        <operation error="skip" info="port new analytics structure to old oc2">
+            <search><![CDATA[$this->load->controller('analytics/' . $this->request->get['extension'] . '/install');]]></search>
+            <add position="after"><![CDATA[
+            //d_opencart_patch.xml 1
+            $this->load->model('extension/d_opencart_patch/user');
+            $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/analytics/' . $this->request->get['extension']);
+            $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/analytics/' . $this->request->get['extension']);
+
+            $this->load->controller('extension/analytics/' . $this->request->get['extension'] . '/install');
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new analytics structure to old oc2">
+            <search><![CDATA[$this->load->controller('analytics/' . $this->request->get['extension'] . '/uninstall');]]></search>
+            <add position="after"><![CDATA[
+            //d_opencart_patch.xml 2
+            $this->load->controller('extension/analytics/' . $this->request->get['extension'] . '/uninstall');
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new analytics structure to old oc2">
+            <search><![CDATA[if (!file_exists(DIR_APPLICATION . 'controller/analytics/' . $value . '.php')) {]]></search>
+            <add position="replace"><![CDATA[
+                //d_opencart_patch.xml 3
+                if (!file_exists(DIR_APPLICATION . 'controller/analytics/' . $value . '.php')
+                && !file_exists(DIR_APPLICATION . 'controller/extension/analytics/' . $value . '.php')) {
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new analytics structure to old oc2">
+            <search><![CDATA[$data['extensions'][] = array(]]></search>
+            <add position="replace"><![CDATA[
+                //d_opencart_patch.xml 4
+                $data['extensions'][$extension] = array(
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new analytics structure to old oc2">
+            <search><![CDATA[$this->load->language('analytics/' . $extension);]]></search>
+            <add position="before"><![CDATA[
+                //d_opencart_patch.xml 5
+                if($extension == 'd_opencart_patch'){
+                    continue;
+                }
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
+            <add position="before"><![CDATA[
+        //d_opencart_patch.xml 6
+        $files = glob(DIR_APPLICATION . 'controller/extension/analytics/*.php');
+
+        if ($files) {
+            foreach ($files as $file) {
+                $extension = basename($file, '.php');
+
+                if($extension == 'd_opencart_patch'){
+                    continue;
+                }
+                $this->load->language('extension/analytics/' . $extension);
+
+                $module_data = array();
+                if(VERSION > "2.0.0.0"){
+                    $this->load->model('extension/module');
+                    $modules = $this->model_extension_module->getModulesByCode($extension);
+
+                    foreach ($modules as $module) {
+                        $module_data[] = array(
+                            'module_id' => $module['module_id'],
+                            'name'      => $this->language->get('heading_title') . ' &gt; ' . $module['name'],
+                            'edit'      => $this->url->link('extension/analytics/' . $extension, 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL'),
+                            'delete'    => $this->url->link('extension/analytics/delete', 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL')
+                        );
+                    }
+                }
+
+                $data['extensions'][$extension] = array(
+                    'name'      => $this->language->get('heading_title'),
+                    'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+                    'module'    => $module_data,
+                    'install'   => $this->url->link('extension/analytics/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
+                    'uninstall' => $this->url->link('extension/analytics/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
+                    'installed' => in_array($extension, $extensions),
+                    'edit'      => $this->url->link('extension/analytics/' . $extension, 'token=' . $this->session->data['token'], 'SSL')
+                );
+            }
+        }
+
+        $sort_order = array();
+
+        foreach ($data['extensions'] as $key => $value) {
+            $sort_order[$key] = $value['name'];
+        }
+
+        array_multisort($sort_order, SORT_ASC, $data['extensions']);
+            ]]></add>
+        </operation>
+    </file>
+
+    <file path="admin/controller/extension/captcha.php">
+        <operation error="skip" info="port new captcha structure to old oc2">
+            <search><![CDATA[$this->load->controller('captcha/' . $this->request->get['extension'] . '/install');]]></search>
+            <add position="after"><![CDATA[
+            //d_opencart_patch.xml 1
+            $this->load->model('extension/d_opencart_patch/user');
+            $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/captcha/' . $this->request->get['extension']);
+            $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/captcha/' . $this->request->get['extension']);
+
+            $this->load->controller('extension/captcha/' . $this->request->get['extension'] . '/install');
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new captcha structure to old oc2">
+            <search><![CDATA[$this->load->controller('captcha/' . $this->request->get['extension'] . '/uninstall');]]></search>
+            <add position="after"><![CDATA[
+            //d_opencart_patch.xml 2
+            $this->load->controller('extension/captcha/' . $this->request->get['extension'] . '/uninstall');
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new captcha structure to old oc2">
+            <search><![CDATA[if (!file_exists(DIR_APPLICATION . 'controller/captcha/' . $value . '.php')) {]]></search>
+            <add position="replace"><![CDATA[
+                //d_opencart_patch.xml 3
+                if (!file_exists(DIR_APPLICATION . 'controller/captcha/' . $value . '.php')
+                && !file_exists(DIR_APPLICATION . 'controller/extension/captcha/' . $value . '.php')) {
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new captcha structure to old oc2">
+            <search><![CDATA[$data['extensions'][] = array(]]></search>
+            <add position="replace"><![CDATA[
+                //d_opencart_patch.xml 4
+                $data['extensions'][$extension] = array(
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new captcha structure to old oc2">
+            <search><![CDATA[$this->load->language('captcha/' . $extension);]]></search>
+            <add position="before"><![CDATA[
+                //d_opencart_patch.xml 5
+                if($extension == 'd_opencart_patch'){
+                    continue;
+                }
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
+            <add position="before"><![CDATA[
+        //d_opencart_patch.xml 6
+        $files = glob(DIR_APPLICATION . 'controller/extension/captcha/*.php');
+
+        if ($files) {
+            foreach ($files as $file) {
+                $extension = basename($file, '.php');
+
+                if($extension == 'd_opencart_patch'){
+                    continue;
+                }
+                $this->load->language('extension/captcha/' . $extension);
+
+                $module_data = array();
+                if(VERSION > "2.0.0.0"){
+                    $this->load->model('extension/module');
+                    $modules = $this->model_extension_module->getModulesByCode($extension);
+
+                    foreach ($modules as $module) {
+                        $module_data[] = array(
+                            'module_id' => $module['module_id'],
+                            'name'      => $this->language->get('heading_title') . ' &gt; ' . $module['name'],
+                            'edit'      => $this->url->link('extension/captcha/' . $extension, 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL'),
+                            'delete'    => $this->url->link('extension/captcha/delete', 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL')
+                        );
+                    }
+                }
+
+                $data['extensions'][$extension] = array(
+                    'name'      => $this->language->get('heading_title'),
+                    'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+                    'module'    => $module_data,
+                    'install'   => $this->url->link('extension/captcha/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
+                    'uninstall' => $this->url->link('extension/captcha/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
+                    'installed' => in_array($extension, $extensions),
+                    'edit'      => $this->url->link('extension/captcha/' . $extension, 'token=' . $this->session->data['token'], 'SSL')
+                );
+            }
+        }
+
+        $sort_order = array();
+
+        foreach ($data['extensions'] as $key => $value) {
+            $sort_order[$key] = $value['name'];
+        }
+
+        array_multisort($sort_order, SORT_ASC, $data['extensions']);
+            ]]></add>
+        </operation>
+    </file>
+
+
     <file path="admin/controller/{startup,error}/permission.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$ignore = array(]]></search>
