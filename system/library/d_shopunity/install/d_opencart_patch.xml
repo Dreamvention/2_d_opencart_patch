@@ -333,6 +333,7 @@
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+                    'sort_order' => $this->config->get($extension . '_sort_order'),
                     'module'    => $module_data,
                     'install'   => $this->url->link('extension/shipping/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
                     'uninstall' => $this->url->link('extension/shipping/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
