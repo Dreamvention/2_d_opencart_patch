@@ -7,6 +7,7 @@
     <author>Dreamvention</author>
     <link>http://dreamvention.com</link>
 
+    <!-- SYSTEM -->
     <file path="system/engine/loader.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[public function controller($route, $args = array()) {]]></search>
@@ -128,6 +129,7 @@
                 ]]></add>
             </operation>
     </file>
+
     <file path="system/engine/action.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$parts = explode('/', str_replace('../', '', (string)$route));]]></search>
@@ -160,8 +162,9 @@
             ]]></add>
         </operation>
     </file>
-    <file path="admin/controller/extension/module.php">
 
+    <!-- ADMIN -->
+    <file path="admin/controller/extension/module.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$this->load->controller('module/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -256,8 +259,8 @@
             ]]></add>
         </operation>
     </file>
-    <file path="admin/controller/extension/shipping.php">
 
+    <file path="admin/controller/extension/shipping.php">
         <operation error="skip" info="port new shipping structure to old oc2">
             <search><![CDATA[$this->load->controller('shipping/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -353,8 +356,8 @@
             ]]></add>
         </operation>
     </file>
-    <file path="admin/controller/extension/payment.php">
 
+    <file path="admin/controller/extension/payment.php">
         <operation error="skip" info="port new payment structure to old oc2">
             <search><![CDATA[$this->load->controller('payment/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -430,6 +433,7 @@
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+                    'sort_order' => $this->config->get($extension . '_sort_order'),
                     'module'    => $module_data,
                     'install'   => $this->url->link('extension/payment/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
                     'uninstall' => $this->url->link('extension/payment/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
@@ -449,8 +453,8 @@
             ]]></add>
         </operation>
     </file>
-    <file path="admin/controller/extension/dashboard.php">
 
+    <file path="admin/controller/extension/dashboard.php">
         <operation error="skip" info="port new dashboard structure to old oc2">
             <search><![CDATA[$this->load->controller('dashboard/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -545,8 +549,8 @@
             ]]></add>
         </operation>
     </file>
-    <file path="admin/controller/extension/total.php">
 
+    <file path="admin/controller/extension/total.php">
         <operation error="skip" info="port new total structure to old oc2">
             <search><![CDATA[$this->load->controller('total/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -622,6 +626,7 @@
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+                    'sort_order' => $this->config->get($extension . '_sort_order'),
                     'module'    => $module_data,
                     'install'   => $this->url->link('extension/total/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
                     'uninstall' => $this->url->link('extension/total/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, 'SSL'),
@@ -641,8 +646,8 @@
             ]]></add>
         </operation>
     </file>
-    <file path="admin/controller/extension/feed.php">
 
+    <file path="admin/controller/extension/feed.php">
         <operation error="skip" info="port new feed structure to old oc2">
             <search><![CDATA[$this->load->controller('feed/' . $this->request->get['extension'] . '/install');]]></search>
             <add position="after"><![CDATA[
@@ -1033,6 +1038,80 @@
             <add position="after"><![CDATA[
         //d_opencart_patch.xml 1
         'extension/dashboard',
+            ]]></add>
+        </operation>
+    </file>
+
+    <!-- CATALLOG -->
+    <file path="catalog/controller/checkout/shipping_method.php">
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$quote = $this->{'model_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);]]></search>
+            <add position="replace"><![CDATA[////]]></add>
+        </operation>
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$this->load->model('shipping/' . $result['code']);]]></search>
+            <add position="replace"><![CDATA[
+                //d_opencart_patch.xml 1
+                if(file_exists(DIR_APPLICATION . 'model/extension/shipping/' . $result['code'] . '.php')){
+                    $this->load->model('extension/shipping/' . $result['code']);
+                    $quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
+                } elseif (file_exists(DIR_APPLICATION . 'model/shipping/' . $result['code'] . '.php')) {
+                    $this->load->model('shipping/' . $result['code']);
+                    $quote = $this->{'model_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
+                }
+            ]]></add>
+        </operation>
+    </file>
+
+    <file path="catalog/controller/checkout/payment_method.php">
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$this->{'model_total_' . $result['code']}->getTotal($total_data, $total, $taxes);]]></search>
+            <add position="replace"><![CDATA[////]]></add>
+        </operation>
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$this->load->model('total/' . $result['code']);]]></search>
+            <add position="replace"><![CDATA[
+                //d_opencart_patch.xml 1
+                if(file_exists(DIR_APPLICATION . 'model/extension/total/' . $result['code'] . '.php')){
+                    $this->load->model('extension/total/' . $result['code']);
+                    $this->{'model_extension_total_' . $result['code']}->getTotal($total_data, $total, $taxes);
+                } elseif (file_exists(DIR_APPLICATION . 'model/total/' . $result['code'] . '.php')) {
+                    $this->load->model('total/' . $result['code']);
+                    $this->{'model_total_' . $result['code']}->getTotal($total_data, $total, $taxes);
+                }
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$method = $this->{'model_payment_' . $result['code']}->getMethod($this->session->data['payment_address'], $total);]]></search>
+            <add position="replace"><![CDATA[////]]></add>
+        </operation>
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$this->load->model('payment/' . $result['code']);]]></search>
+            <add position="replace"><![CDATA[
+                //d_opencart_patch.xml 2
+                if(file_exists(DIR_APPLICATION . 'model/extension/payment/' . $result['code'] . '.php')){
+                    $this->load->model('extension/payment/' . $result['code']);
+                    $method = $this->{'model_extension_payment_' . $result['code']}->getMethod($this->session->data['payment_address'], $total);
+                } elseif (file_exists(DIR_APPLICATION . 'model/payment/' . $result['code'] . '.php')) {
+                    $this->load->model('payment/' . $result['code']);
+                    $method = $this->{'model_payment_' . $result['code']}->getMethod($this->session->data['payment_address'], $total);
+                }
+            ]]></add>
+        </operation>
+        <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[if ($recurring) {]]></search>
+            <add position="replace" offset="3"><![CDATA[
+                //d_opencart_patch.xml 3
+                if ($recurring) {
+                    if(file_exists(DIR_APPLICATION . 'model/extension/payment/' . $result['code'] . '.php')){
+                        if (property_exists($this->{'model_extension_payment_' . $result['code']}, 'recurringPayments') && $this->{'model_extension_payment_' . $result['code']}->recurringPayments()) {
+                            $method_data[$result['code']] = $method;
+                        }
+                    } elseif (file_exists(DIR_APPLICATION . 'model/payment/' . $result['code'] . '.php')) {
+                        if (method_exists($this->{'model_payment_' . $result['code']}, 'recurringPayments') && $this->{'model_payment_' . $result['code']}->recurringPayments()) {
+                            $method_data[$result['code']] = $method;
+                        }
+                    }
             ]]></add>
         </operation>
     </file>
