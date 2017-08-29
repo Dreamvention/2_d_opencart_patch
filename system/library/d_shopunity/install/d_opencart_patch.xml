@@ -1115,4 +1115,15 @@
             ]]></add>
         </operation>
     </file>
+    <file path="admin/controller/design/layout.php">
+        <operation error="skip">
+            <search><![CDATA[$this->load->language('module/' . $code);]]></search>
+            <add position="after"><![CDATA[
+                //d_opencart_patch.xml
+            if(file_exists(DIR_LANGUAGE . 'en-gb/extension/module/' . $code .'.php')){
+                $this->load->language('extension/module/' . $code);
+            }
+            ]]></add>
+        </operation>
+    </file>
 </modification>
