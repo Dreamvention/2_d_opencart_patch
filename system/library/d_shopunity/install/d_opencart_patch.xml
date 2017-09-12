@@ -122,7 +122,6 @@
                 <add position="before"><![CDATA[
             //d_opencart_patch.xml
             $file = DIR_LANGUAGE . 'en-gb/' . $filename . '.php';
-
             if (is_file($file)) {
                 require($file);
             }
@@ -136,27 +135,21 @@
             <add position="before"><![CDATA[
         //d_opencart_patch.xml action
         $parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
-
         $this->method = 'index';
         while ($parts) {
             $path = implode('/', $parts);
             $file = DIR_APPLICATION . 'controller/' . $path . '.php';
-
             if (is_file($file)) {
                 $this->file = $file;
-
                 $this->class = 'Controller' . preg_replace('/[^a-zA-Z0-9]/', '', $path);
-
                 break;
             } else {
                 $this->method = array_pop($parts);
             }
         }
-
         if ($args) {
             $this->args = $args;
         }
-
         return;
         //the following code will be ignored.
             ]]></add>
@@ -172,7 +165,6 @@
             $this->load->model('extension/d_opencart_patch/user');
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/module/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/module/' . $this->request->get['extension']);
-
             $this->load->controller('extension/module/' . $this->request->get['extension'] . '/install');
             ]]></add>
         </operation>
@@ -212,21 +204,17 @@
             <add position="before"><![CDATA[
         //d_opencart_patch.xml 6
         $files = glob(DIR_APPLICATION . 'controller/extension/module/*.php');
-
         if ($files) {
             foreach ($files as $file) {
                 $extension = basename($file, '.php');
-
                 if($extension == 'd_opencart_patch'){
                     continue;
                 }
                 $this->load->language('extension/module/' . $extension);
-
                 $module_data = array();
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -236,7 +224,6 @@
                         );
                     }
                 }
-
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
@@ -248,13 +235,10 @@
                 );
             }
         }
-
         $sort_order = array();
-
         foreach ($data['extensions'] as $key => $value) {
             $sort_order[$key] = $value['name'];
         }
-
         array_multisort($sort_order, SORT_ASC, $data['extensions']);
             ]]></add>
         </operation>
@@ -268,7 +252,6 @@
             $this->load->model('extension/d_opencart_patch/user');
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/shipping/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/shipping/' . $this->request->get['extension']);
-
             $this->load->controller('extension/shipping/' . $this->request->get['extension'] . '/install');
             ]]></add>
         </operation>
@@ -308,21 +291,17 @@
             <add position="before"><![CDATA[
         //d_opencart_patch.xml 6
         $files = glob(DIR_APPLICATION . 'controller/extension/shipping/*.php');
-
         if ($files) {
             foreach ($files as $file) {
                 $extension = basename($file, '.php');
-
                 if($extension == 'd_opencart_patch'){
                     continue;
                 }
                 $this->load->language('extension/shipping/' . $extension);
-
                 $module_data = array();
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -332,7 +311,6 @@
                         );
                     }
                 }
-
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
@@ -345,13 +323,10 @@
                 );
             }
         }
-
         $sort_order = array();
-
         foreach ($data['extensions'] as $key => $value) {
             $sort_order[$key] = $value['name'];
         }
-
         array_multisort($sort_order, SORT_ASC, $data['extensions']);
             ]]></add>
         </operation>
@@ -365,7 +340,6 @@
             $this->load->model('extension/d_opencart_patch/user');
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/payment/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/payment/' . $this->request->get['extension']);
-
             $this->load->controller('extension/payment/' . $this->request->get['extension'] . '/install');
             ]]></add>
         </operation>
@@ -405,21 +379,17 @@
             <add position="before"><![CDATA[
         //d_opencart_patch.xml 6
         $files = glob(DIR_APPLICATION . 'controller/extension/payment/*.php');
-
         if ($files) {
             foreach ($files as $file) {
                 $extension = basename($file, '.php');
-
                 if($extension == 'd_opencart_patch'){
                     continue;
                 }
                 $this->load->language('extension/payment/' . $extension);
-
                 $module_data = array();
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -429,7 +399,6 @@
                         );
                     }
                 }
-
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
@@ -442,13 +411,10 @@
                 );
             }
         }
-
         $sort_order = array();
-
         foreach ($data['extensions'] as $key => $value) {
             $sort_order[$key] = $value['name'];
         }
-
         array_multisort($sort_order, SORT_ASC, $data['extensions']);
             ]]></add>
         </operation>
@@ -462,7 +428,6 @@
             $this->load->model('extension/d_opencart_patch/user');
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/dashboard/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/dashboard/' . $this->request->get['extension']);
-
             $this->load->controller('extension/dashboard/' . $this->request->get['extension'] . '/install');
             ]]></add>
         </operation>
@@ -502,21 +467,17 @@
             <add position="before"><![CDATA[
         //d_opencart_patch.xml 6
         $files = glob(DIR_APPLICATION . 'controller/extension/dashboard/*.php');
-
         if ($files) {
             foreach ($files as $file) {
                 $extension = basename($file, '.php');
-
                 if($extension == 'd_opencart_patch'){
                     continue;
                 }
                 $this->load->language('extension/dashboard/' . $extension);
-
                 $module_data = array();
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -526,7 +487,6 @@
                         );
                     }
                 }
-
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
@@ -538,13 +498,10 @@
                 );
             }
         }
-
         $sort_order = array();
-
         foreach ($data['extensions'] as $key => $value) {
             $sort_order[$key] = $value['name'];
         }
-
         array_multisort($sort_order, SORT_ASC, $data['extensions']);
             ]]></add>
         </operation>
@@ -558,7 +515,6 @@
             $this->load->model('extension/d_opencart_patch/user');
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/total/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/total/' . $this->request->get['extension']);
-
             $this->load->controller('extension/total/' . $this->request->get['extension'] . '/install');
             ]]></add>
         </operation>
@@ -598,21 +554,17 @@
             <add position="before"><![CDATA[
         //d_opencart_patch.xml 6
         $files = glob(DIR_APPLICATION . 'controller/extension/total/*.php');
-
         if ($files) {
             foreach ($files as $file) {
                 $extension = basename($file, '.php');
-
                 if($extension == 'd_opencart_patch'){
                     continue;
                 }
                 $this->load->language('extension/total/' . $extension);
-
                 $module_data = array();
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -622,7 +574,6 @@
                         );
                     }
                 }
-
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
@@ -635,13 +586,10 @@
                 );
             }
         }
-
         $sort_order = array();
-
         foreach ($data['extensions'] as $key => $value) {
             $sort_order[$key] = $value['name'];
         }
-
         array_multisort($sort_order, SORT_ASC, $data['extensions']);
             ]]></add>
         </operation>
@@ -655,7 +603,6 @@
             $this->load->model('extension/d_opencart_patch/user');
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/feed/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/feed/' . $this->request->get['extension']);
-
             $this->load->controller('extension/feed/' . $this->request->get['extension'] . '/install');
             ]]></add>
         </operation>
@@ -695,21 +642,17 @@
             <add position="before"><![CDATA[
         //d_opencart_patch.xml 6
         $files = glob(DIR_APPLICATION . 'controller/extension/feed/*.php');
-
         if ($files) {
             foreach ($files as $file) {
                 $extension = basename($file, '.php');
-
                 if($extension == 'd_opencart_patch'){
                     continue;
                 }
                 $this->load->language('extension/feed/' . $extension);
-
                 $module_data = array();
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -719,7 +662,6 @@
                         );
                     }
                 }
-
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
@@ -731,13 +673,10 @@
                 );
             }
         }
-
         $sort_order = array();
-
         foreach ($data['extensions'] as $key => $value) {
             $sort_order[$key] = $value['name'];
         }
-
         array_multisort($sort_order, SORT_ASC, $data['extensions']);
             ]]></add>
         </operation>
@@ -751,7 +690,6 @@
             $this->load->model('extension/d_opencart_patch/user');
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/fraud/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/fraud/' . $this->request->get['extension']);
-
             $this->load->controller('extension/fraud/' . $this->request->get['extension'] . '/install');
             ]]></add>
         </operation>
@@ -791,21 +729,17 @@
             <add position="before"><![CDATA[
         //d_opencart_patch.xml 6
         $files = glob(DIR_APPLICATION . 'controller/extension/fraud/*.php');
-
         if ($files) {
             foreach ($files as $file) {
                 $extension = basename($file, '.php');
-
                 if($extension == 'd_opencart_patch'){
                     continue;
                 }
                 $this->load->language('extension/fraud/' . $extension);
-
                 $module_data = array();
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -815,7 +749,6 @@
                         );
                     }
                 }
-
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
@@ -827,13 +760,10 @@
                 );
             }
         }
-
         $sort_order = array();
-
         foreach ($data['extensions'] as $key => $value) {
             $sort_order[$key] = $value['name'];
         }
-
         array_multisort($sort_order, SORT_ASC, $data['extensions']);
             ]]></add>
         </operation>
@@ -847,7 +777,6 @@
             $this->load->model('extension/d_opencart_patch/user');
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/analytics/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/analytics/' . $this->request->get['extension']);
-
             $this->load->controller('extension/analytics/' . $this->request->get['extension'] . '/install');
             ]]></add>
         </operation>
@@ -887,21 +816,17 @@
             <add position="before"><![CDATA[
         //d_opencart_patch.xml 6
         $files = glob(DIR_APPLICATION . 'controller/extension/analytics/*.php');
-
         if ($files) {
             foreach ($files as $file) {
                 $extension = basename($file, '.php');
-
                 if($extension == 'd_opencart_patch'){
                     continue;
                 }
                 $this->load->language('extension/analytics/' . $extension);
-
                 $module_data = array();
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -911,7 +836,6 @@
                         );
                     }
                 }
-
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
@@ -923,13 +847,10 @@
                 );
             }
         }
-
         $sort_order = array();
-
         foreach ($data['extensions'] as $key => $value) {
             $sort_order[$key] = $value['name'];
         }
-
         array_multisort($sort_order, SORT_ASC, $data['extensions']);
             ]]></add>
         </operation>
@@ -943,7 +864,6 @@
             $this->load->model('extension/d_opencart_patch/user');
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/captcha/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/captcha/' . $this->request->get['extension']);
-
             $this->load->controller('extension/captcha/' . $this->request->get['extension'] . '/install');
             ]]></add>
         </operation>
@@ -983,21 +903,17 @@
             <add position="before"><![CDATA[
         //d_opencart_patch.xml 6
         $files = glob(DIR_APPLICATION . 'controller/extension/captcha/*.php');
-
         if ($files) {
             foreach ($files as $file) {
                 $extension = basename($file, '.php');
-
                 if($extension == 'd_opencart_patch'){
                     continue;
                 }
                 $this->load->language('extension/captcha/' . $extension);
-
                 $module_data = array();
                 if(VERSION > "2.0.0.0"){
                     $this->load->model('extension/module');
                     $modules = $this->model_extension_module->getModulesByCode($extension);
-
                     foreach ($modules as $module) {
                         $module_data[] = array(
                             'module_id' => $module['module_id'],
@@ -1007,7 +923,6 @@
                         );
                     }
                 }
-
                 $data['extensions'][$extension] = array(
                     'name'      => $this->language->get('heading_title'),
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
@@ -1019,13 +934,10 @@
                 );
             }
         }
-
         $sort_order = array();
-
         foreach ($data['extensions'] as $key => $value) {
             $sort_order[$key] = $value['name'];
         }
-
         array_multisort($sort_order, SORT_ASC, $data['extensions']);
             ]]></add>
         </operation>
@@ -1079,6 +991,12 @@
                     $this->load->model('total/' . $result['code']);
                     $this->{'model_total_' . $result['code']}->getTotal($total_data, $total, $taxes);
                 }
+            ]]></add>
+        </operation>
+         <operation error="skip" info="port new module structure to old oc2">
+            <search><![CDATA[$this->{'model_total_' . $result['code']}->getTotal($total_data);]]></search>
+            <add position="replace"><![CDATA[
+                //$this->{'model_total_' . $result['code']}->getTotal($total_data);
             ]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
