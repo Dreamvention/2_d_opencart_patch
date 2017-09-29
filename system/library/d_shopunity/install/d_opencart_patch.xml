@@ -944,7 +944,7 @@
     </file>
 
 
-    <file path="admin/controller/{startup,error}/permission.php">
+    <file path="admin/controller/startup/permission.php,admin/controller/error/permission.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$ignore = array(]]></search>
             <add position="after"><![CDATA[
