@@ -9,7 +9,11 @@ class ModelExtensionDOpencartPatchUser extends Model {
     public function __construct($registry) {
         parent::__construct($registry);
         if(!isset($this->user)){
-            $this->registry->set('user', new Cart\User($registry));
+            if(VERSION < '2.2.0.0'){
+                $this->registry->set('user', new User($registry));
+            }else{
+                $this->registry->set('user', new Cart\User($registry));
+            }
         }
 
     }
