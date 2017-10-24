@@ -22,7 +22,7 @@ class ModelExtensionDOpencartPatchExtension extends Model {
         $sql = "SELECT * FROM " . DB_PREFIX . "extension WHERE ";
 
         if($type){
-            $sql = "`type` = '" . $this->db->escape($type) . "' AND ";
+            $sql .= "`type` = '" . $this->db->escape($type) . "' AND ";
         }
 
         $sql = "`code` = '" . $this->db->escape($code) . "'";
