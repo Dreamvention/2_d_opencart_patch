@@ -25,7 +25,7 @@ class ModelExtensionDOpencartPatchExtension extends Model {
             $sql .= "`type` = '" . $this->db->escape($type) . "' AND ";
         }
 
-        $sql = "`code` = '" . $this->db->escape($code) . "'";
+        $sql .= "`code` = '" . $this->db->escape($code) . "'";
         
         $query = $this->db->query($sql);
         if(!empty($query->row)){
