@@ -1063,6 +1063,7 @@
             foreach (glob($next) as $file) {
                 // If directory add to path array
                 if (is_dir($file)) {
+                    $files[] = $file;
                     $path[] = $file . '/*';
                 }
 
