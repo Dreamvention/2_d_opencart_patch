@@ -1044,4 +1044,49 @@
             ]]></add>
         </operation>
     </file>
+    <file path="admin/controller/user/user_permission.php">
+        <operation error="skip">
+            <search><![CDATA[$files = glob(DIR_APPLICATION . 'controller/*/*.php');]]></search>
+            <add position="after"><![CDATA[
+        //d_opencart_patch.xml 1
+        $data['permissions'] = array();
+
+        $files = array();
+
+        // Make path into an array
+        $path = array(DIR_APPLICATION . 'controller/*');
+
+        // While the path array is still populated keep looping through
+        while (count($path) != 0) {
+            $next = array_shift($path);
+
+            foreach (glob($next) as $file) {
+                // If directory add to path array
+                if (is_dir($file)) {
+                    $path[] = $file . '/*';
+                }
+
+                // Add the file to the files to be deleted array
+                if (is_file($file)) {
+                    $files[] = $file;
+                }
+            }
+        }
+
+        // Sort the file array
+        sort($files);
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin/controller/user/user_permission.php">
+        <operation error="skip">
+            <search><![CDATA[$permission = end($part) . '/' . basename($file, '.php');]]></search>
+            <add position="after"><![CDATA[
+            //d_opencart_patch.xml 2
+            $controller = substr($file, strlen(DIR_APPLICATION . 'controller/'));
+
+            $permission = substr($controller, 0, strrpos($controller, '.'));
+            ]]></add>
+        </operation>
+    </file>
 </modification>
