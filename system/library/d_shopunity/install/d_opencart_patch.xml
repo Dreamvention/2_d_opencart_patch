@@ -296,4 +296,14 @@
             ]]></add>
         </operation>
     </file>
+    
+    <file path="admin/controller/user/user_permission.php">
+        <operation error="skip">
+            <search><![CDATA[$permission = substr($controller, 0, strrpos($controller, '.'));]]></search>
+            <add position="replace"><![CDATA[
+            //d_opencart_patch.xml 3
+            $permission = (strrpos($controller, '.') !== false) ? substr($controller, 0, strrpos($controller, '.')) : $controller;
+            ]]></add>
+        </operation>
+    </file>
 </modification>
