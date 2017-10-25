@@ -1085,7 +1085,7 @@
             //d_opencart_patch.xml 2
             $controller = substr($file, strlen(DIR_APPLICATION . 'controller/'));
 
-            $permission = substr($controller, 0, strrpos($controller, '.'));
+            $permission = (strrpos($controller, '.') !== false) ? substr($controller, 0, strrpos($controller, '.')) : $controller;
             ]]></add>
         </operation>
     </file>
