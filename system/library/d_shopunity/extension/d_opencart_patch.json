@@ -24,8 +24,16 @@
         "email": "support@shopunity.com",
         "url": "https://shopunity.net/"
     },
+    "install": {
+        "url": "extension/d_shopunity/modification/install&codename=d_opencart_patch",
+        "xml": "system/library/d_shopunity/install/d_opencart_patch.xml"
+    },
+    "uninstall": {
+       "url": "extension/d_shopunity/modification/uninstall&codename=d_opencart_patch"
+    },
     "files": [
         "system/library/d_shopunity/extension/d_opencart_patch.json",
+        "system/library/d_shopunity/install/d_opencart_patch.xml",
         "system/library/d_shopunity/readme/d_opencart_patch.md"
     ],
     "dirs": [
