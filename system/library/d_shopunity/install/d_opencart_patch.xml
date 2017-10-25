@@ -144,6 +144,7 @@
             ]]></add>
         </operation>
     </file>
+    
     <file path="admin/controller/user/user_permission.php">
         <operation error="skip">
             <search><![CDATA[$permission = substr($controller, 0, strrpos($controller, '.'));]]></search>
