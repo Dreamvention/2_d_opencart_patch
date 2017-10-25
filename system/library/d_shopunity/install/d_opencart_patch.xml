@@ -8,9 +8,16 @@
     <link>http://dreamvention.com</link>
     <file path="admin/controller/user/user_permission.php">
         <operation error="skip">
+            <search><![CDATA[$path[] = $file . '/*';]]></search>
+            <add position="after"><![CDATA[
+            //d_opencart_patch.xml 1
+            $files[] = $file;
+            ]]></add>
+        </operation>
+        <operation error="skip">
             <search><![CDATA[$permission = substr($controller, 0, strrpos($controller, '.'));]]></search>
             <add position="replace"><![CDATA[
-            //d_opencart_patch.xml 1
+            //d_opencart_patch.xml 2
             $permission = (strrpos($controller, '.') !== false) ? substr($controller, 0, strrpos($controller, '.')) : $controller;
             ]]></add>
         </operation>
