@@ -22,4 +22,15 @@
             ]]></add>
         </operation>
     </file>
+    <file path="admin/controller/extension/installer.php">
+        <operation error="skip">
+            <search><![CDATA[$modification_info = $this->model_setting_modification->getModificationByCode($code);]]></search>
+            <add position="after"><![CDATA[
+            //d_opencart_patch.xml 1
+            if (strpos($code, 'd_') === 0) {
+                $modification_info = false; 
+            }
+            ]]></add>
+        </operation>
+    </file>
 </modification>
