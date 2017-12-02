@@ -318,7 +318,8 @@
             <search><![CDATA[$modification_info = $this->model_extension_modification->getModificationByCode($code);]]></search>
             <add position="after"><![CDATA[
             //d_opencart_patch.xml 1
-            if (strpos($code, 'd_') === 0) {
+            if (strpos($code, 'd_') === 0 && $modification_info) {
+                $this->model_extension_modification->deleteModification($modification_info['modification_id']);
                 $modification_info = false; 
             }
             ]]></add>
