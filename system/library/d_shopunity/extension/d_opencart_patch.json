@@ -1,6 +1,6 @@
 {
     "codename": "d_opencart_patch",
-    "version": "2.0.8",
+    "version": "2.0.9",
     "name": "Opencart Patch for 2.3.0.x",
     "description": "Adds support for new Extension Module folder",
     "readme": "system/library/d_shopunity/readme/d_opencart_patch.md",
@@ -40,6 +40,10 @@
         "catalog/model/extension/d_opencart_patch"
     ],
     "changelog": [
+        {
+            "version":"2.0.9",
+            "change": "bugfix for events"
+        },
         {
             "version":"2.0.8",
             "change": "Remvoved check for modifications with d_"
