@@ -43,7 +43,7 @@
 
         $extension = $query->row;
 
-        if(strpos($extension['filename'], '_compiled_')){
+        if(isset($extension['filename']) && strpos($extension['filename'], '_compiled_')){
 
 
             $parts = explode('_compiled_', $extension['filename']);
@@ -64,7 +64,7 @@
 
         $extension = $query->row;
 
-        if(strpos($extension['filename'], '_compiled_') !== false){
+        if(isset($extension['filename']) && strpos($extension['filename'], '_compiled_') !== false){
 
 
             $parts = explode('_compiled_', $extension['filename']);
