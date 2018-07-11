@@ -69,7 +69,7 @@
 
             $parts = explode('_compiled_', $extension['filename']);
             $extension_name = $parts[0];
-            $this->db->query("DELETE FROM `" . DB_PREFIX . "modification` WHERE `extension_install_id` = '" . (int)$extension_install_id . "' AND name LIKE '%".$this->db->escape($extension_name)."%'");
+            $this->db->query("DELETE FROM `" . DB_PREFIX . "modification` WHERE `extension_install_id` = '" . (int)$extension_install_id . "' AND `name` LIKE '%".$this->db->escape($extension_name)."%'");
 
         }else{
             $this->db->query("DELETE FROM `" . DB_PREFIX . "modification` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");
