@@ -80,7 +80,7 @@
     <file path="admin/controller/marketplace/install.php">
         <operation error="skip">
             <search><![CDATA[$this->model_setting_extension->deleteExtensionInstall($extension_install_id);]]></search>
-            <add position="replace"><![CDATA[ // //d_opencart_patch.xml 1 moved down]]></add>
+            <add position="replace"><![CDATA[//d_opencart_patch.xml 1 moved down]]></add>
         </operation>
     </file>
     <file path="admin/controller/marketplace/install.php">
