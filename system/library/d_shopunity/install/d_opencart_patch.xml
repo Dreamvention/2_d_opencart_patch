@@ -55,4 +55,27 @@
             ]]></add>
         </operation>
     </file>
+    <file path="admin/model/setting/modification.php">
+        <operation error="skip">
+            <search><![CDATA[$this->db->query("DELETE FROM `" . DB_PREFIX . "modification` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");]]></search>
+            <add position="replace"><![CDATA[
+        //d_opencart_patch.xml 1
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_install` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");
+
+        $extension = $query->row;
+
+        if(strpos($extension['filename'], '_compiled_') !== false){
+
+
+            $parts = explode('_compiled_', $extension['filename']);
+            $extension_name = $parts[0];
+            $this->db->query("DELETE FROM `" . DB_PREFIX . "modification` WHERE `extension_install_id` = '" . (int)$extension_install_id . "' AND name LIKE '%".$this->db->escape($extension_name)."%'");
+
+        }else{
+            $this->db->query("DELETE FROM `" . DB_PREFIX . "modification` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");
+        }
+            ]]></add>
+        </operation>
+    </file>
+    
 </modification>
