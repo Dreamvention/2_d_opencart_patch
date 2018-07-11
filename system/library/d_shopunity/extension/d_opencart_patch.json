@@ -1,6 +1,6 @@
 {
     "codename": "d_opencart_patch",
-    "version": "3.0.8",
+    "version": "3.0.9",
     "name": "Opencart Patch 3.x",
     "description": "Adds support for new Extension Module folder and reduces compatibility issues",
     "readme": "system/library/d_shopunity/readme/d_opencart_patch.md",
@@ -41,6 +41,10 @@
         "catalog/model/extension/d_opencart_patch"
     ],
     "changelog": [
+        {
+            "version":"3.0.9",
+            "change": "fix uninstall path conflict for compiled extensions"
+        },
         {
             "version":"3.0.8",
             "change": "bugfix for events"
