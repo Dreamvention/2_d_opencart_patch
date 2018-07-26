@@ -2,301 +2,10 @@
 <modification>
     <name>d_opencart_patch</name>
     <code>d_opencart_patch</code>
-    <description>Adds copmatibility fixes for old extensions on Opencarts 2.x</description>
-    <version>2.3.0.x</version>
+    <description>Permission fixes in Opencart 3.x</description>
+    <version>3.0.9</version>
     <author>Dreamvention</author>
     <link>http://dreamvention.com</link>
-
-    <file path="admin/controller/extension/extension/dashboard.php">
-        <operation error="skip" info="fix for install and uninstall of dashboard extensions">
-            <search ><![CDATA['dashboard_' . $this->request->get['extension']]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 1]]></ignoreif>
-            <add position="replace"><![CDATA[$this->request->get['extension']]]></add>
-        </operation>
-        <operation error="skip" info="fix for install and uninstall of dashboard extensions">
-            <search ><![CDATA[$this->load->controller('extension/dashboard/' . $this->request->get['extension'] . '/uninstall');]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 2]]></ignoreif>
-            <add position="before"><![CDATA[
-                //d_shopunity_oc230_patch.xml 2
-                $this->load->model('setting/setting');
-                $this->model_setting_setting->deleteSetting('dashboard_'.$this->request->get['extension']);
-            ]]></add>
-        </operation>
-        <operation error="skip" info="fix for install and uninstall of dashboard extensions">
-            <search ><![CDATA[$this->model_extension_extension->uninstall('dashboard', $value);]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 3]]></ignoreif>
-            <add position="after"><![CDATA[
-                //d_shopunity_oc230_patch.xml 3
-                $this->load->model('setting/setting');
-                $this->model_setting_setting->deleteSetting('dashboard_'.$value);
-            ]]></add>
-        </operation>
-    </file>
-
-    <file path="admin/controller/event/compatibility.php">
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[$route = $part[1] . '/' . $part[2];]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 1]]></ignoreif>
-            <add position="replace"><![CDATA[
-            //d_shopunity_oc230_patch.xml 1
-            unset($part[0]);
-            $route = implode('/', $part);
-            ]]></add>
-        </operation>
-        <!-- <operation error="skip" info="fix for 2.3.0.x">
-            <search position="replace" offset="2"><![CDATA[if (!is_file(DIR_LANGUAGE . $this->config->get('config_language') . '/' . $route . '.php') && is_file(DIR_LANGUAGE . $this->config->get('config_language') . '/' . $part[1] . '/' . $part[2] . '.php')) {]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 2]]></ignoreif>
-            <add><![CDATA[
-            //d_shopunity_oc230_patch.xml 2
-            $directories = array($this->config->get('config_admin_language'), $this->language->default, 'english');
-            
-            foreach ($directories as $directory) {
-                if (!is_file(DIR_LANGUAGE . $directory . '/' . $route . '.php') && is_file(DIR_LANGUAGE . $directory . '/' . $part[1] . '/' . $part[2] . '.php')) {
-                    $route = $part[1] . '/' . $part[2];
-                    break;
-                }
-             }
-         ]]></add>
-        </operation> -->
-    </file>
-    <file path="admin/controller/extension/extension/feed.php">
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/feed/' . $this->request->get['extension']);]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml]]></ignoreif>
-            <add position="after"><![CDATA[
-            //d_shopunity_oc230_patch.xml
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'feed/' . $this->request->get['extension']);
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'feed/' . $this->request->get['extension']);
-            ]]></add>
-        </operation>
-    </file>
-    <file path="admin/controller/extension/extension/fraud.php">
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/fraud/' . $this->request->get['extension']);]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml]]></ignoreif>
-            <add position="after"><![CDATA[
-            //d_shopunity_oc230_patch.xml
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'fraud/' . $this->request->get['extension']);
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'fraud/' . $this->request->get['extension']);
-            ]]></add>
-        </operation>
-    </file>
-    <file path="admin/controller/extension/extension/module.php">
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/module/' . $this->request->get['extension']);]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 1]]></ignoreif>
-            <add position="after"><![CDATA[
-            //d_shopunity_oc230_patch.xml 1
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'module/' . $this->request->get['extension']);
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'module/' . $this->request->get['extension']);
-            ]]></add>
-        </operation>
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[$data['extensions'][] = array(]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 2]]></ignoreif>
-            <add position="replace"><![CDATA[
-            //d_shopunity_oc230_patch.xml 2
-            $data['extensions'][$extension] = array(
-            ]]></add>
-        </operation>
-    </file>
-    <file path="admin/controller/extension/extension/payment.php">
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/payment/' . $this->request->get['extension']);]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml]]></ignoreif>
-            <add position="after"><![CDATA[
-            //d_shopunity_oc230_patch.xml
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'payment/' . $this->request->get['extension']);
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'payment/' . $this->request->get['extension']);
-            ]]></add>
-        </operation>
-    </file>
-    <file path="admin/controller/extension/extension/shipping.php">
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/shipping/' . $this->request->get['extension']);]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml]]></ignoreif>
-            <add position="after"><![CDATA[
-            //d_shopunity_oc230_patch.xml
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'shipping/' . $this->request->get['extension']);
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'shipping/' . $this->request->get['extension']);
-            ]]></add>
-        </operation>
-    </file>
-    <file path="admin/controller/extension/extension/theme.php">
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/theme/' . $this->request->get['extension']);]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml]]></ignoreif>
-            <add position="after"><![CDATA[
-            //d_shopunity_oc230_patch.xml
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'theme/' . $this->request->get['extension']);
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'theme/' . $this->request->get['extension']);
-
-            ]]></add>
-        </operation>
-    </file>
-    <file path="admin/controller/extension/extension/total.php">
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/total/' . $this->request->get['extension']);]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml]]></ignoreif>
-            <add position="after"><![CDATA[
-            //d_shopunity_oc230_patch.xml
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'total/' . $this->request->get['extension']);
-            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'total/' . $this->request->get['extension']);
-
-            ]]></add>
-        </operation>
-    </file>
-
-    <file path="catalog/controller/event/compatibility.php">
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[$route = $part[1] . '/' . $part[2];]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 1]]></ignoreif>
-            <add position="replace"><![CDATA[
-            //d_shopunity_oc230_patch.xml 1
-            unset($part[0]);
-            $route = implode('/', $part);
-            ]]></add>
-        </operation>
-        <!-- <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[if (!is_file(DIR_LANGUAGE . $this->config->get('config_language') . '/' . $route . '.php') && is_file(DIR_LANGUAGE . $this->config->get('config_language') . '/' . $part[1] . '/' . $part[2] . '.php')) {]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 2]]></ignoreif>
-            <add position="replace" offset="2"><![CDATA[
-            //d_shopunity_oc230_patch.xml 2
-            $directories = array($this->config->get('config_admin_language'), $this->language->default, 'english');
-            
-            foreach ($directories as $directory) {
-                if (!is_file(DIR_LANGUAGE . $directory . '/' . $route . '.php') && is_file(DIR_LANGUAGE . $directory . '/' . $part[1] . '/' . $part[2] . '.php')) {
-                    $route = $part[1] . '/' . $part[2];
-                    break;
-                }
-             }
-         ]]></add>
-        </operation> -->
-    </file>
-
-    <file path="system/library/cart/user.php">
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[return in_array($value, $this->permission[$key]);]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml]]></ignoreif>
-            <add position="replace"><![CDATA[
-            //d_shopunity_oc230_patch.xml
-            $part = explode('/', $value);
-            unset($part[0]);
-            return (in_array($value, $this->permission[$key]) || in_array(implode('/', $part), $this->permission[$key])) ? true: false;
-            ]]></add>
-        </operation>
-    </file>
-    <!-- <file path="system/library/language.php">
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search><![CDATA[private $default = 'en-gb';]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 1]]></ignoreif>
-            <add position="replace"><![CDATA[
-            //d_shopunity_oc230_patch.xml 1
-            public $default = 'en-gb';
-            ]]></add>
-        </operation>
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search><![CDATA[$old_file = DIR_LANGUAGE . 'english/' . str_replace('extension/', '', $filename) . '.php';]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 2]]></ignoreif>
-            <add position="replace"><![CDATA[
-            //d_shopunity_oc230_patch.xml 2
-            ]]></add>
-        </operation>
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search><![CDATA[} elseif (is_file($old_file)) {]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 2]]></ignoreif>
-            <add position="replace" offset="1"><![CDATA[
-            //d_shopunity_oc230_patch.xml 2
-            ]]></add>
-        </operation>
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search><![CDATA[$old_file = DIR_LANGUAGE . $this->default . '/' . str_replace('extension/', '', $filename) . '.php';]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 3]]></ignoreif>
-            <add  position="replace"><![CDATA[
-            //d_shopunity_oc230_patch.xml 3
-            ]]></add>
-        </operation>
-        <operation error="skip" info="fix for 2.3.0.x">
-            <search><![CDATA[$old_file = DIR_LANGUAGE . $this->directory . '/' . str_replace('extension/', '', $filename) . '.php';]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml 4]]></ignoreif>
-            <add  position="replace"><![CDATA[
-            //d_shopunity_oc230_patch.xml 4
-            ]]></add>
-        </operation>
-    </file> -->
-    <file path="system/config/catalog.php">
-         <operation error="skip" info="fix for 2.3.0.x">
-            <search ><![CDATA[$_['action_event'] = array(]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml]]></ignoreif>
-            <add position="after"><![CDATA[
-            //d_shopunity_oc230_patch.xml
-            'controller/extension/analytics/*/before' => 'event/compatibility/controller',
-            'controller/extension/captcha/*/before'   => 'event/compatibility/controller',
-            'controller/extension/feed/*/before'      => 'event/compatibility/controller',
-            'controller/extension/fraud/*/before'     => 'event/compatibility/controller',
-            'controller/extension/module/*/before'    => 'event/compatibility/controller',
-            'controller/extension/payment/*/before'   => 'event/compatibility/controller',
-            'controller/extension/recurring/*/before' => 'event/compatibility/controller',
-            'controller/extension/shipping/*/before'  => 'event/compatibility/controller',
-            'controller/extension/theme/*/before'     => 'event/compatibility/controller',
-            'controller/extension/total/*/before'     => 'event/compatibility/controller',
-            ]]></add>
-        </operation>
-    </file>
-    
-    <file path="admin/controller/event/compatibility.php">
-         <operation error="skip" info="remove errror for 2.3.0.x">
-            <search ><![CDATA[class ControllerEventCompatibility extends Controller {]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml fix 1]]></ignoreif>
-            <add position="before"><![CDATA[
-            //d_shopunity_oc230_patch.xml fix 1
-            if (!class_exists('ControllerEventCompatibility')) {
-            ]]></add>
-        </operation>
-    </file>
-
-    <file path="admin/controller/event/compatibility.php">
-         <operation error="skip" info="remove errror for 2.3.0.x">
-            <search ><![CDATA[public function view(&$route, &$data) {]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml fix 2]]></ignoreif>
-            <add position="after" offset="8"><![CDATA[
-            //d_shopunity_oc230_patch.xml fix 2
-}
-            ]]></add>
-        </operation>
-    </file>
-    
-    <file path="admin/model/localisation/language.php">
-         <operation error="skip" info="fix errror for 2.3.0.x">
-            <search ><![CDATA[$this->db->query("DELETE FROM " . DB_PREFIX . "banner_image_description WHERE language_id = '" . (int)$language_id . "'");]]></search>
-            <ignoreif><![CDATA[//d_shopunity_oc230_patch.xml fix]]></ignoreif>
-            <add position="replace"><![CDATA[
-            //d_shopunity_oc230_patch.xml fix
-            if(VERSION < '2.3.0.0'){
-                $this->db->query("DELETE FROM " . DB_PREFIX . "banner_image_description WHERE language_id = '" . (int)$language_id . "'");
-            }
-            ]]></add>
-        </operation>
-    </file>
-
-    <file path="admin/view/template/extension/extension/analytics.tpl">
-         <operation error="skip" info="fix analytics tpl errror for 2.3.0.x">
-            <search index="3"><![CDATA[<?php } ?>]]></search>
-            <ignoreif><![CDATA[<!-- d_shopunity_oc230_patch.xml 1 -->]]></ignoreif>
-            <add position="replace"><![CDATA[
-            <!-- d_shopunity_oc230_patch.xml 1 -->
-            ]]></add>
-        </operation>
-        <operation error="skip" info="fix analytics tpl errror for 2.3.0.x">
-            <search index="1"><![CDATA[<?php } else { ?>]]></search>
-            <ignoreif><![CDATA[<!-- d_shopunity_oc230_patch.xml 2 -->]]></ignoreif>
-            <add position="before"><![CDATA[
-            <!-- d_shopunity_oc230_patch.xml 2 -->
-            <?php } ?>
-            ]]></add>
-        </operation>
-    </file>
-    
     <file path="admin/controller/user/user_permission.php">
         <operation error="skip">
             <search><![CDATA[$path[] = $file . '/*';]]></search>
@@ -315,14 +24,71 @@
     </file>
     <file path="admin/controller/extension/installer.php">
         <operation error="skip">
-            <search><![CDATA[$modification_info = $this->model_extension_modification->getModificationByCode($code);]]></search>
+            <search><![CDATA[$modification_info = $this->model_setting_modification->getModificationByCode($code);]]></search>
             <add position="after"><![CDATA[
             //d_opencart_patch.xml 1
             if (strpos($code, 'd_') === 0 && $modification_info) {
-                $this->model_extension_modification->deleteModification($modification_info['modification_id']);
+                $this->model_setting_modification->deleteModification($modification_info['modification_id']);
                 $modification_info = false; 
             }
             ]]></add>
+        </operation>
+    </file>
+    <file path="admin/model/setting/extension.php">
+        <operation error="skip">
+            <search><![CDATA[$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_path` WHERE `extension_install_id` = '" . (int)$extension_install_id . "' ORDER BY `date_added` ASC");]]></search>
+            <add position="replace"><![CDATA[
+        //d_opencart_patch.xml 1
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_install` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");
+
+        $extension = $query->row;
+
+        if(isset($extension['filename']) && strpos($extension['filename'], '_compiled_')){
+
+
+            $parts = explode('_compiled_', $extension['filename']);
+            $extension_name = $parts[0];
+            $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_path` WHERE `extension_install_id` = '" . (int)$extension_install_id . "' AND path LIKE '%".$this->db->escape($extension_name)."%' ORDER BY `date_added` ASC");
+        }else{
+            $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_path` WHERE `extension_install_id` = '" . (int)$extension_install_id . "' ORDER BY `date_added` ASC");
+        }
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin/model/setting/modification.php">
+        <operation error="skip">
+            <search><![CDATA[$this->db->query("DELETE FROM `" . DB_PREFIX . "modification` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");]]></search>
+            <add position="replace"><![CDATA[
+        //d_opencart_patch.xml 1
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_install` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");
+
+        $extension = $query->row;
+
+        if(isset($extension['filename']) && strpos($extension['filename'], '_compiled_') !== false){
+
+
+            $parts = explode('_compiled_', $extension['filename']);
+            $extension_name = $parts[0];
+            $this->db->query("DELETE FROM `" . DB_PREFIX . "modification` WHERE `extension_install_id` = '" . (int)$extension_install_id . "' AND `name` LIKE '%".$this->db->escape($extension_name)."%'");
+
+        }else{
+            $this->db->query("DELETE FROM `" . DB_PREFIX . "modification` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");
+        }
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin/controller/marketplace/install.php">
+        <operation error="skip">
+            <search><![CDATA[$this->model_setting_extension->deleteExtensionInstall($extension_install_id);]]></search>
+            <add position="replace"><![CDATA[//d_opencart_patch.xml 1 moved down]]></add>
+        </operation>
+    </file>
+    <file path="admin/controller/marketplace/install.php">
+        <operation error="skip">
+            <search><![CDATA[$this->model_setting_modification->deleteModificationsByExtensionInstallId($extension_install_id);]]></search>
+            <add position="after"><![CDATA[
+                //d_opencart_patch.xml 2
+                $this->model_setting_extension->deleteExtensionInstall($extension_install_id);]]></add>
         </operation>
     </file>
 </modification>
