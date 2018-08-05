@@ -1,9 +1,8 @@
 {
     "codename": "d_opencart_patch",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "name": "Opencart Patch for 2.3.0.x",
-    "description": "Adds support for new Extension Module folder",
-    "readme": "system/library/d_shopunity/readme/d_opencart_patch.md",
+    "description": "Adds support for new Extension Module folder and reduces compatibility issues",
     "author": {
         "name": "Shopunity",
         "email": "info@shopunity.com",
@@ -40,6 +39,10 @@
         "catalog/model/extension/d_opencart_patch"
     ],
     "changelog": [
+        {
+            "version":"2.1.1",
+            "change": "remove readme"
+        },
         {
             "version":"2.1.0",
             "change": "added cache model"
