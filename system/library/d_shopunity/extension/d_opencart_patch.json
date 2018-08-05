@@ -2,7 +2,7 @@
     "codename": "d_opencart_patch",
     "version": "1.1.1",
     "name": "Opencart Patch 2.2.x and below.",
-    "description": "Adds support for new Extension Module folder and reduces compatibility issues",
+    "description": "Adds support for new Extension Module folder and reduces compatibility issues.",
     "author": {
         "name": "Shopunity",
         "email": "info@shopunity.com",
