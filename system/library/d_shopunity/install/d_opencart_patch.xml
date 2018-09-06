@@ -325,4 +325,78 @@
             ]]></add>
         </operation>
     </file>
+    <file path="admin/controller/common/filemanager.php">
+        <operation>
+            <search><![CDATA[$files = glob($directory . '/' . $filter_name . '*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}', GLOB_BRACE);]]></search>
+            <add position="replace"><![CDATA[$files = glob($directory . '/' . $filter_name . '*.{jpg,jpeg,svg,png,gif,JPG,JPEG,PNG,GIF}', GLOB_BRACE);]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA['jpg',]]></search>
+            <add position="after"><![CDATA['svg',]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA['image/jpeg',]]></search>
+            <add position="after"><![CDATA['image/svg+xml',]]></add>
+        </operation>
+    </file>
+    <file path="admin/view/template/common/filemanager.twig">
+        <operation>
+            <search><![CDATA[<img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}" />]]></search>
+            <add position="replace"><![CDATA[<img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}" width="100" height="100" />]]></add>
+        </operation>
+    </file>
+    <file path="admin/view/template/common/header.twig">
+        <operation>
+            <search><![CDATA[</header>]]></search>
+            <add position="before"><![CDATA[
+                <style type="text/css">
+                    a.img-thumbnail{
+                        min-width:100px;
+                    }
+                </style>
+                ]]></add>
+        </operation>
+    </file>
+    <file path="admin/model/tool/image.php">
+        <operation>
+            <search><![CDATA[public function resize($filename, $width, $height) {]]></search>
+            <add position="after"><![CDATA[
+                if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+                    $server = HTTPS_CATALOG;
+                } else {
+                    $server = HTTP_CATALOG;
+                }
+
+                if ($filename) {
+                    $image_info = @getimagesize(DIR_IMAGE . $filename);
+                    if (!$image_info) {
+                        return $server . 'image/' . $filename;
+                    }
+                } else {
+                    $filename = "no_image.png";
+                }
+                ]]></add>
+        </operation>
+    </file>
+    <file path="catalog/model/tool/image.php">
+        <operation>
+            <search><![CDATA[public function resize($filename, $width, $height) {]]></search>
+            <add position="after"><![CDATA[
+                if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+                    $server = HTTPS_CATALOG;
+                } else {
+                    $server = HTTP_CATALOG;
+                }
+
+                if ($filename) {
+                    $image_info = @getimagesize(DIR_IMAGE . $filename);
+                    if (!$image_info) {
+                        return $server . 'image/' . $filename;
+                    }
+                } else {
+                    $filename = "no_image.png";
+                }
+                ]]></add>
+        </operation>
+    </file>
 </modification>

@@ -19,9 +19,13 @@ class ModelExtensionDOpencartPatchSetting extends Model {
         $this->load->model('setting/setting');
         $this->model_setting_setting->deleteSetting($code, $store_id);
     }
-
+    public function getSettingValue($key, $store_id = 0)
+    {
+        $this->load->model('setting/setting');
+        $this->model_setting_setting->getSettingValue( $key, $store_id);
+    }
     public function editSettingValue($code = '', $key = '', $value = '', $store_id = 0) {
         $this->load->model('setting/setting');
-        $this->model_setting_setting->deleteSetting($code, $key, $value, $store_id);
+        $this->model_setting_setting->editSettingValue($code, $key, $value, $store_id);
     }
 }

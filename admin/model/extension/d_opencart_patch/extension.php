@@ -31,6 +31,7 @@ class ModelExtensionDOpencartPatchExtension extends Model {
         if(!empty($query->row)){
             return true;
         }
+
         return false;
     }
 
