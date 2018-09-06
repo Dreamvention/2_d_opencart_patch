@@ -32,4 +32,14 @@ class ModelExtensionDOpencartPatchUser extends Model {
             return $this->session->data['token'];
         }
     }
+    public function getCustomerGroups(){
+        if (VERSION >= '2.1.0.1') {
+            $this->load->model('customer/customer_group');
+            $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
+        } else {
+            $this->load->model('sale/customer_group');
+            $data['customer_groups'] = $this->model_sale_customer_group->getCustomerGroups();
+        }
+    }
+
 }
