@@ -382,10 +382,10 @@
         <operation>
             <search><![CDATA[public function resize($filename, $width, $height) {]]></search>
             <add position="after"><![CDATA[
-                if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
-                    $server = HTTPS_CATALOG;
+               if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+                    $server = HTTPS_SERVER;
                 } else {
-                    $server = HTTP_CATALOG;
+                    $server = HTTP_SERVER;
                 }
 
                 if ($filename) {
