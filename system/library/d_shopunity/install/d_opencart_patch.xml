@@ -6,7 +6,6 @@
     <version>2.x</version>
     <author>Dreamvention</author>
     <link>http://dreamvention.com</link>
-
     <!-- SYSTEM -->
     <file path="system/engine/loader.php">
         <operation error="skip" info="port new module structure to old oc2">
@@ -48,8 +47,7 @@
             if(file_exists(DIR_APPLICATION . 'controller/extension/' . $test_route . '.php')){
                 $route = 'extension/'.$route;
             }
-        }
-            ]]></add>
+        }]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$controller = new $class($this->registry);]]></search>
@@ -57,11 +55,9 @@
         //d_opencart_patch.xml 2
         if(!is_file($file)){
             return false;
-        }
-            ]]></add>
+        }]]></add>
         </operation>
     </file>
-
     <file path="system/engine/loader.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[public function controller($route, $data = array()) {]]></search>
@@ -111,11 +107,9 @@
         //d_opencart_patch.xml 2
         if(!is_file($file)){
             return false;
-        }
-            ]]></add>
+        }]]></add>
         </operation>
     </file>
-
     <file path="system/library/language.php">
         <operation error="skip" info="port new module structure to old oc2">
                 <search><![CDATA[$file = DIR_LANGUAGE . $this->default . '/' . $filename . '.php';]]></search>
@@ -124,11 +118,9 @@
             $file = DIR_LANGUAGE . 'en-gb/' . $filename . '.php';
             if (is_file($file)) {
                 require($file);
-            }
-                ]]></add>
+            }]]></add>
             </operation>
     </file>
-
     <file path="system/engine/action.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$parts = explode('/', str_replace('../', '', (string)$route));]]></search>
@@ -150,12 +142,9 @@
         if ($args) {
             $this->args = $args;
         }
-        return;
-        //the following code will be ignored.
-            ]]></add>
+        return; //the following code will be ignored. ]]></add>
         </operation>
     </file>
-
     <!-- ADMIN -->
     <file path="admin/controller/extension/module.php">
         <operation error="skip" info="port new module structure to old oc2">
@@ -196,8 +185,7 @@
                 //d_opencart_patch.xml 5
                 if($extension == 'd_opencart_patch'){
                     continue;
-                }
-            ]]></add>
+                }]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
@@ -239,11 +227,9 @@
         foreach ($data['extensions'] as $key => $value) {
             $sort_order[$key] = $value['name'];
         }
-        array_multisort($sort_order, SORT_ASC, $data['extensions']);
-            ]]></add>
+        array_multisort($sort_order, SORT_ASC, $data['extensions']); ]]></add>
         </operation>
     </file>
-
     <file path="admin/controller/extension/shipping.php">
         <operation error="skip" info="port new shipping structure to old oc2">
             <search><![CDATA[$this->load->controller('shipping/' . $this->request->get['extension'] . '/install');]]></search>
@@ -267,15 +253,13 @@
             <add position="replace"><![CDATA[
                 //d_opencart_patch.xml 3
                 if (!file_exists(DIR_APPLICATION . 'controller/shipping/' . $value . '.php')
-                && !file_exists(DIR_APPLICATION . 'controller/extension/shipping/' . $value . '.php')) {
-            ]]></add>
+                && !file_exists(DIR_APPLICATION . 'controller/extension/shipping/' . $value . '.php')) { ]]></add>
         </operation>
         <operation error="skip" info="port new shipping structure to old oc2">
             <search><![CDATA[$data['extensions'][] = array(]]></search>
             <add position="replace"><![CDATA[
                 //d_opencart_patch.xml 4
-                $data['extensions'][$extension] = array(
-            ]]></add>
+                $data['extensions'][$extension] = array( ]]></add>
         </operation>
         <operation error="skip" info="port new shipping structure to old oc2">
             <search><![CDATA[$this->load->language('shipping/' . $extension);]]></search>
@@ -283,8 +267,7 @@
                 //d_opencart_patch.xml 5
                 if($extension == 'd_opencart_patch'){
                     continue;
-                }
-            ]]></add>
+                } ]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
@@ -792,15 +775,13 @@
             <add position="replace"><![CDATA[
                 //d_opencart_patch.xml 3
                 if (!file_exists(DIR_APPLICATION . 'controller/analytics/' . $value . '.php')
-                && !file_exists(DIR_APPLICATION . 'controller/extension/analytics/' . $value . '.php')) {
-            ]]></add>
+                && !file_exists(DIR_APPLICATION . 'controller/extension/analytics/' . $value . '.php')) { ]]></add>
         </operation>
         <operation error="skip" info="port new analytics structure to old oc2">
             <search><![CDATA[$data['extensions'][] = array(]]></search>
             <add position="replace"><![CDATA[
                 //d_opencart_patch.xml 4
-                $data['extensions'][$extension] = array(
-            ]]></add>
+                $data['extensions'][$extension] = array( ]]></add>
         </operation>
         <operation error="skip" info="port new analytics structure to old oc2">
             <search><![CDATA[$this->load->language('analytics/' . $extension);]]></search>
@@ -808,8 +789,7 @@
                 //d_opencart_patch.xml 5
                 if($extension == 'd_opencart_patch'){
                     continue;
-                }
-            ]]></add>
+                } ]]></add>
         </operation>
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
@@ -942,8 +922,6 @@
             ]]></add>
         </operation>
     </file>
-
-
     <file path="admin/controller/startup/permission.php,admin/controller/error/permission.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$ignore = array(]]></search>
@@ -953,7 +931,6 @@
             ]]></add>
         </operation>
     </file>
-
     <!-- CATALLOG -->
     <file path="catalog/controller/checkout/shipping_method.php">
         <operation error="skip" info="port new module structure to old oc2">
@@ -974,7 +951,6 @@
             ]]></add>
         </operation>
     </file>
-
     <file path="catalog/controller/checkout/payment_method.php">
         <operation error="skip" info="port new module structure to old oc2">
             <search><![CDATA[$this->{'model_total_' . $result['code']}->getTotal($total_data, $total, $taxes);]]></search>
@@ -1072,10 +1048,7 @@
                 }
             }
         }
-
-        // Sort the file array
-        sort($files);
-            ]]></add>
+        sort($files); ]]></add>
         </operation>
     </file>
     <file path="admin/controller/user/user_permission.php">
@@ -1085,8 +1058,7 @@
             //d_opencart_patch.xml 2
             $controller = substr($file, strlen(DIR_APPLICATION . 'controller/'));
 
-            $permission = (strrpos($controller, '.') !== false) ? substr($controller, 0, strrpos($controller, '.')) : $controller;
-            ]]></add>
+            $permission = (strrpos($controller, '.') !== false) ? substr($controller, 0, strrpos($controller, '.')) : $controller; ]]></add>
         </operation>
     </file>
     <file path="admin/controller/extension/installer.php">
@@ -1097,16 +1069,14 @@
             if (strpos($code, 'd_') === 0 && $modification_info) {
                 $this->model_extension_modification->deleteModification($modification_info['modification_id']);
                 $modification_info = false; 
-            }
-            ]]></add>
+            } ]]></add>
         </operation>
     </file>
     <file path="catalog/controller/startup/startup.php">
         <operation error="skip">
             <search><![CDATA[$this->config->set('config_url', HTTP_SERVER);]]></search>
             <add position="after"><![CDATA[
-        $this->config->set('config_ssl', HTTPS_SERVER);
-        ]]></add>
+        $this->config->set('config_ssl', HTTPS_SERVER); ]]></add>
         </operation>
     </file>
     <file path="admin/model/tool/image.php">
@@ -1118,7 +1088,6 @@
                 } else {
                     $server = HTTP_CATALOG;
                 }
-
                 if ($filename) {
                     $image_info = @getimagesize(DIR_IMAGE . $filename);
                     if (!$image_info) {
@@ -1126,8 +1095,7 @@
                     }
                 } else {
                     $filename = "no_image.png";
-                }
-                ]]></add>
+                } ]]></add>
         </operation>
     </file>
     <file path="catalog/model/tool/image.php">
@@ -1139,7 +1107,6 @@
                 } else {
                     $server = HTTP_SERVER;
                 }
-
                 if ($filename) {
                     $image_info = @getimagesize(DIR_IMAGE . $filename);
                     if (!$image_info) {
@@ -1147,8 +1114,7 @@
                     }
                 } else {
                     $filename = "no_image.png";
-                }
-                ]]></add>
+                } ]]></add>
         </operation>
     </file>
 </modification>
