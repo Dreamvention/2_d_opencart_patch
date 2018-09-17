@@ -34,7 +34,7 @@ class ModelExtensionDOpencartPatchEvent extends Model {
     **/
     public function installDatabase(){
         
-        $this->db->query("CREATE TABLE IF NOT EXISTS `".DB_DATABASE."event` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `".DB_PREFIX."event` (
           `event_id` int(11) NOT NULL AUTO_INCREMENT,
           `code` varchar(32) NOT NULL,
           `trigger` text NOT NULL,
