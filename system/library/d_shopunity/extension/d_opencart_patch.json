@@ -48,7 +48,7 @@
     "changelog": [
         {
             "version":"1.1.4",
-            "change": "fix cache clear."
+            "change": "fix cache clear"
         },
         {
             "version":"1.1.3",
