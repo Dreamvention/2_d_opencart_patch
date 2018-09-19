@@ -35,8 +35,8 @@ class ModelExtensionDOpencartPatchCache extends Model {
                         unlink($file);
                     }
                 }
-                
-                if (is_dir($directory)) {
+
+                if (is_dir($directory) && is_readable($directory) && count(scandir($directory)) == 0) {
                     rmdir($directory);
                 }
             }
