@@ -42,7 +42,7 @@
     "changelog": [
         {
             "version":"3.1.4",
-            "change": "fix lang event "
+            "change": "fix lang event; fix settinValue "
         },
         {
             "version":"3.1.3",
