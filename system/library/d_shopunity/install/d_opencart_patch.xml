@@ -174,6 +174,14 @@
                    //    ),
                 ]]></add>
         </operation>
+        <operation>
+            <search index="1" ><![CDATA['controller/*/after'  => array(]]></search>
+            <add position="replace" offset="2"><![CDATA[
+                    //	'controller/*/after'  => array(
+                    //'event/debug/after'
+                    //)
+                ]]></add>
+        </operation>
     </file>
 
 </modification>
