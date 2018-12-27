@@ -1,6 +1,6 @@
 {
     "codename": "d_opencart_patch",
-    "version": "2.1.3",
+    "version": "2.1.4",
     "name": "Opencart Patch for 2.3.0.x",
     "description": "Adds support for new Extension Module folder and reduces compatibility issues",
     "author": {
@@ -39,6 +39,10 @@
         "catalog/model/extension/d_opencart_patch"
     ],
     "changelog": [
+        {
+            "version":"2.1.4",
+            "change": "fix settingValue func"
+        },
         {
             "version":"2.1.3",
             "change": "fix cache clear."
