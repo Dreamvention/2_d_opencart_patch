@@ -1,6 +1,6 @@
 {
     "codename": "d_opencart_patch",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "name": "Opencart Patch 2.2.x and below.",
     "description": "Adds support for new Extension Module folder and reduces compatibility issues.",
     "author": {
@@ -47,6 +47,10 @@
     ],
     "changelog": [
         {
+            "version":"1.1.6",
+            "change": "fix settingValue func"
+        },
+      {
             "version":"1.1.5",
             "change": "fix permissison"
         },
