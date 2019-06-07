@@ -1,6 +1,6 @@
 {
     "codename": "d_opencart_patch",
-    "version": "3.1.5",
+    "version": "3.1.6",
     "name": "Opencart Patch 3.x",
     "description": "Adds support for new Extension Module folder and reduces compatibility issues",
     "author": {
@@ -41,6 +41,10 @@
         "catalog/model/extension/d_opencart_patch"
     ],
     "changelog": [
+        {
+            "version":"3.1.6",
+            "change": "fix localisation/language cache"
+        },
         {
             "version":"3.1.5",
             "change": "support OC v3.0.3.1 "

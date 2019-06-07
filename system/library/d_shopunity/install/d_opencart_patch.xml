@@ -3,7 +3,7 @@
     <name>d_opencart_patch</name>
     <code>d_opencart_patch</code>
     <description>Permission fixes in Opencart 3.x</description>
-    <version>3.0.9</version>
+    <version>3.1.6</version>
     <author>Dreamvention</author>
     <link>http://dreamvention.com</link>
     <file path="admin/controller/user/user_permission.php">
@@ -165,8 +165,16 @@
                 ]]></add>
         </operation>
     </file>
+    <file path="catalog/model/localisation/language.php">
+        <operation error="skip">
+$language_data = $this->cache->get('language');
+            <search ><![CDATA[$language_data = $this->cache->get('language');]]></search>
+            <add position="replace"><![CDATA[
+        $language_data = $this->cache->get('catalog.language');]]></add>
+        </operation>
+    </file>
     <file path="system/config/catalog.php">
-        <operation>
+        <operation error="skip">
             <search index="1" ><![CDATA['view/*/before' => array(]]></search>
             <add position="replace" offset="2"><![CDATA[
                    //    "view/*/before" => array(
@@ -174,14 +182,13 @@
                    //    ),
                 ]]></add>
         </operation>
-        <operation>
+        <operation error="skip">
             <search ><![CDATA['controller/*/after'  => array(]]></search>
             <add position="replace" offset="2"><![CDATA[
-                    //	'controller/*/after'  => array(
+                    //  'controller/*/after'  => array(
                     //'event/debug/after'
                     //)
                 ]]></add>
         </operation>
     </file>
-
 </modification>
