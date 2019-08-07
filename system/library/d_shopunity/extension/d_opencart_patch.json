@@ -1,6 +1,6 @@
 {
     "codename": "d_opencart_patch",
-    "version": "3.1.6",
+    "version": "3.1.7",
     "name": "Opencart Patch 3.x",
     "description": "Adds support for new Extension Module folder and reduces compatibility issues",
     "author": {
@@ -8,13 +8,7 @@
         "email": "info@shopunity.com",
         "url": "https://shopunity.net/"
     },
-    "opencart_version": [
-        "3.0.0.0",
-        "3.0.1.1",
-        "3.0.1.2",
-        "3.0.2.0",
-        "3.0.3.1"
-    ],
+    "opencart_version": "3-4",
     "type": "library",
     "license": {
         "type": "free",
@@ -41,6 +35,10 @@
         "catalog/model/extension/d_opencart_patch"
     ],
     "changelog": [
+        {
+            "version":"3.1.7",
+            "change": "sem var"
+        },
         {
             "version":"3.1.6",
             "change": "fix localisation/language cache"
