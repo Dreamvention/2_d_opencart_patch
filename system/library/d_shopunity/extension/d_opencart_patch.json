@@ -1,6 +1,6 @@
 {
     "codename": "d_opencart_patch",
-    "version": "3.1.7",
+    "version": "3.1.8",
     "name": "Opencart Patch 3.x",
     "description": "Adds support for new Extension Module folder and reduces compatibility issues",
     "author": {
@@ -35,6 +35,10 @@
         "catalog/model/extension/d_opencart_patch"
     ],
     "changelog": [
+        {
+            "version":"3.1.8",
+            "change": "fix twig include template in opencart 3.0.3.6"
+        },
         {
             "version":"3.1.7",
             "change": "sem var"
