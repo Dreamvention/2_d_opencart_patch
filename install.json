@@ -1,0 +1,9 @@
+{
+    "name": "Opencart Patch",
+    "codename": "dv_opencart_patch",
+    "license": "GPL",
+    "version": "1.0.4",
+    "author": "Dreamvention",
+    "link": "https://dreamvention.com/",
+    "code": "dv_opencart_patch"
+}
